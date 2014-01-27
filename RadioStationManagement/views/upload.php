@@ -88,15 +88,16 @@
 									<td align="right"><strong><h3>ไฟล์เพลง :&nbsp;&nbsp;</h3></strong></td>
 									<td><input type="file" name="upload_file" class="btn btn-warning" /></td>
 								</tr>
-								
+								<!-- 
 								<tr height="50">
 									<td align="right"><strong><h3>ลองฟัง :&nbsp;&nbsp;</h3></strong></td>
 									<td>
 										<audio controls>
-											<source src="" type="audio/mpeg" />
+											<source src="http://localhost/RadioStationManagement/RadioStationManagement/files/Balada.mp3" type="audio/mpeg" />
 										</audio>
 									</td>
 								</tr>
+							 	-->
 							</table>								
 						</div>			
 					</div>						

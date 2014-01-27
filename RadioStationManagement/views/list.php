@@ -9,23 +9,30 @@
 				<td width="50"><strong>#</strong></td>
 				<td><strong>NAME</strong></td>
 				<td><strong>FILE</strong></td>
+				<td><strong>SIZE</strong></td>
 				<td><strong>DATE</strong></td>
 				<td><strong>TIME</strong></td>
+				<td><strong>LIST</strong></td>
 				<td></td>
 			</tr>	
 			<?php
 				require_once ('lib/DB.php');
+				$mod = (1024*1024);
 				$db = new DB();
-				$db->query("SELECT * FROM fileupload ORDER BY id ASC");
+				$db->query("SELECT * FROM user_upload ORDER BY FilesID ASC");
 				foreach ($db->fetch_array() as $data){
-					echo "<tr>";
-					echo "<td>".$data['id']."</td>";
-					echo "<td>".$data['upload_name']."</td>";
-					echo "<td>".$data['upload_file']."</td>";
-					echo "<td>".$data['upload_date']."</td>";
-					echo "<td>".$data['upload_time']."</td>";
-					echo "<td></td>";
-					echo "</tr>";	
+			?>
+				<tr>
+					<td><?php echo $data['FilesID']; ?></td>
+					<td><?php echo $data['Name']; ?></td>
+					<td><?php echo $data['FilesName']; ?></td>
+					<td><?php printf("%.2f", ($data['Size']/$mod)); ?> MB.</td>
+					<td><?php echo $data['DayWeek']; ?></td>
+					<td><?php echo $data['DayTime']; ?></td>
+					<td><?php echo $data['List']; ?></td>
+					<td><button onClick="JavaScript:window.location='index.php?v=Delete&ID=<?php echo $data['FilesID']?>&filesName=<?php echo $data['FilesName']; ?>'" class="btn btn-xs btn-danger">ลบ</button></td>
+				</tr>
+			<?php
 				}
 			?>
 		</table>

@@ -1,18 +1,22 @@
 <?php
-	require_once ('../lib/Control.php');
+	require_once ('../lib/File.php');
 	require_once ('../lib/DB.php');
-	$ctrl = new Control();
+	
+	$file = new File();
 	$db = new DB();
 	
-	$by = $_GET["user"];
-	$name = $_POST["upload_name"];
-	$date = $_POST["upload_date"];
-	$time = $_POST["upload_time"];
-	$ctrl->uploadFile($_FILES["upload_file"]);
-	$file = $ctrl->getName();
+	$Name = $_GET["user"];	
+	$file->uploadFile($_FILES["upload_file"]);
+	$FilesName = $file->getName();
+	$Size = $_FILES["upload_file"]["size"];
+	$ContentType = $_FILES["upload_file"]["type"];
+	$DayWeek = $_POST["upload_date"];
+	$DayTime = $_POST["upload_time"];
+	$List = $_POST["upload_name"];
+	$FilesPath = "/files/";
 	
-	$sql = "INSERT INTO fileupload VALUES 
-			(NULL, '".$by."', '".$name."', '".$file."', '".$date."', '".$time."')";
+	$sql = "INSERT INTO user_upload VALUES 
+			(NULL, '".$Name."', '".$FilesName."', '".$Size."', '".$ContentType."', '".$DayWeek."', '".$DayTime."', '".$List."', '".$FilesPath."')";
 	$db->query($sql);
 
 ?>
