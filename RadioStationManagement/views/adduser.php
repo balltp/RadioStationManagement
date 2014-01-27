@@ -10,15 +10,15 @@
 		<h4><span class="glyphicon glyphicon-user"></span><strong>&nbsp;เพิ่มผู้ใช้งาน</strong></h4>
 	</div>
 	<div class="panel-body">
-		<form action="controller/adduser.php" method="POST" entype="multipart/form-data">
+		<form action="" method="POST" entype="multipart/form-data">
 			<table align="center" width="500">
 				<tr align="right" height="50">
 					<td>NAME : </td>
-					<td><input type="text" value="<?php echo $_GET['name']; ?>" class="form-control" name="name" placeholder="นายดีเจ น่าฟัง"/></td>
+					<td><input type="text" class="form-control" name="name" placeholder="นายดีเจ น่าฟัง"/></td>
 				</tr>
 				<tr align="right" height="50">
 					<td>USERNAME : </td>
-					<td><input type="text" value="<?php echo $_GET['user']; ?>" class="form-control" name="us" placeholder="ไม่เกิน 10 ตัวอักษร" /></td>
+					<td><input type="text" class="form-control" name="us" placeholder="ไม่เกิน 10 ตัวอักษร" /></td>
 				</tr>
 				<tr align="right" height="50">
 					<td>PASSWORD : </td>
@@ -48,7 +48,7 @@
 	</div>
 </div>
 <?php }else{ ?>
-<script type="text/javascript">
+<<script type="text/javascript">
 	window.location='index.php?v=permission';
 </script>
 <?php } ?>
