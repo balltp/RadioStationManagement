@@ -2,14 +2,17 @@
 class File{
 	private $name;
 	
+	//Name File
 	public function getName(){
 		return $this->name;
 	}
 	
+	//Delete File
 	public function deleteFile($filesName){
-		@unlink("files/".$filesName);
+		@unlink("../files/".$filesName);
 	}
 	
+	//Upload File 
 	public function uploadFile($file = array()){
 		$today = getdate();
 		$m = $today["month"];
