@@ -1,9 +1,19 @@
+<?php 
+	require_once ('lib/DB.php');
+	$mod = (1024*1024);
+	$db = new DB();
+	$db->query("SELECT * FROM user_upload ORDER BY FilesID ASC");	
+?>
+
 <div class="panel panel-primary">
 	<div class="panel-heading">
 		แสดงรายการที่ได้อัพโหลด
 	</div>
 
 	<div class="panel-body">
+		<?php 
+			if($db->fetch_array()){
+		?>
 		<table class="table table-hover">
 			<tr class="active">
 				<td width="50"><strong>#</strong></td>
@@ -16,10 +26,6 @@
 				<td></td>
 			</tr>	
 			<?php
-				require_once ('lib/DB.php');
-				$mod = (1024*1024);
-				$db = new DB();
-				$db->query("SELECT * FROM user_upload ORDER BY FilesID ASC");
 				foreach ($db->fetch_array() as $data){
 			?>
 				<tr>
@@ -31,7 +37,7 @@
 					<td><?php echo $data['DayTime']; ?></td>
 					<td><?php echo $data['List']; ?></td>
 					<td>
-					<a href="index.php?v=play&name=<?php echo $data['FilesName']; ?>" class = "btn btn-success btn-xs"><span class="glyphicon glyphicon-music"></span></a>
+					<a href="index.php?v=play&ID=<?php echo $data['FilesID']; ?>" class = "btn btn-success btn-xs"><span class="glyphicon glyphicon-music"></span></a>
 					<a href="index.php?v=Delete&ID=<?php echo $data['FilesID']; ?>" class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-trash"></span></a>
 					</td>
 				
@@ -40,5 +46,10 @@
 				}
 			?>
 		</table>
+		<?php 
+			}else{
+				echo "<div class=\"alert alert-danger\"><h3><span class=\"glyphicon glyphicon-list-alt\"></span>&nbsp;&nbsp;ไม่มีข้อมูล ในฐานข้อมูล</h3></div>";
+			}
+		?>
 	</div>
 </div>

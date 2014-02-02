@@ -5,15 +5,23 @@
 	$file = new File();
 	$db = new DB();
 	
-	$Name = $_GET["user"];	
-	$file->uploadFile($_FILES["upload_file"]);
-	$FilesName = $file->getName();
-	$Size = $_FILES["upload_file"]["size"];
-	$ContentType = $_FILES["upload_file"]["type"];
+	$Name = $_GET["user"];
 	$DayWeek = $_POST["upload_date"];
 	$DayTime = $_POST["upload_time"];
 	$List = $_POST["upload_name"];
-	$FilesPath = "/files/";
+	
+	//TOTAL FILE IN FOLDER
+	$sql = "SELECT * FROM user_upload WHERE DayWeek = '".$DayWeek."' AND DayTime = '".$DayTime."'";
+	$db->query($sql);
+	$total = $db->num_rows();
+	
+	$FilesPath = $file->pathFile($DayTime, $DayWeek);	
+	$file->uploadFile($FilesPath, $_FILES["upload_file"], ($total+1));
+	
+	$FilesName = $file->getName();
+	$Size = $_FILES["upload_file"]["size"];
+	$ContentType = $_FILES["upload_file"]["type"];
+	
 	
 	$sql = "INSERT INTO user_upload VALUES 
 			(NULL, '".$Name."', '".$FilesName."', '".$Size."', '".$ContentType."', '".$DayWeek."', '".$DayTime."', '".$List."', '".$FilesPath."')";
@@ -21,13 +29,6 @@
 
 ?>
 
-<html>
-<head>
-
-</head>
-<body>
 <script langauge="JavaScript">
 	window.location='../index.php';
 </script>
-</body>
-</html>

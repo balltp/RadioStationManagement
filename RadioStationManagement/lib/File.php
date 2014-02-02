@@ -8,12 +8,12 @@ class File{
 	}
 	
 	//Delete File
-	public function deleteFile($filesName){
-		@unlink("../files/".$filesName);
+	public function deleteFile($filesName, $path){
+		@unlink("..".$path.$filesName);
 	}
 	
 	//Upload File 
-	public function uploadFile($file = array()){
+	public function uploadFile($path, $file = array(), $total){
 		$today = getdate();
 		$m = $today["month"];
 		$w = $today["weekday"];
@@ -21,17 +21,32 @@ class File{
 		$mn = $today["minutes"];
 		$s = $today["seconds"];
 		$str = substr($m,0,3).strtolower(substr($w,0,2))."-".$h.$mn.$s;
-			
-		$filename = $str.strtolower(substr($file["name"], -4));
+		
+		$filename = $total."_".$str.strtolower(substr($file["name"], -4));
 		$this->name = $filename;
-			
-		if(move_uploaded_file($file["tmp_name"],"../files/".$filename)){
-			//header("location:../index.php?upload=success");
-			echo "ok";
-		}else{
-			//header("location:../index.php?upload=fail");
-			echo "no";
+		$path = "..".$path;
+		echo $path."<br>";
+		move_uploaded_file($file["tmp_name"],$path.$filename);
+	}
+	
+	//Path File
+	public function pathFile($time='', $date=''){
+		if(!(file_exists("../files"))){
+			mkdir("../files");
 		}
+			
+		if(!(file_exists("../files/$time"))){
+			mkdir("../files/".$time);
+		}
+		
+		if(!(file_exists("../files/$time/$date"))){
+			mkdir("../files/".$time."/".$date);
+		}
+		
+		
+		$pathFile = "/files/".$time."/".$date."/";
+		
+		return $pathFile;
 	}
 }
 ?>
