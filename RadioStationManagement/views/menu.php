@@ -17,18 +17,37 @@
 				&nbsp;เพลงของฉัน
 				</a>
 			</li>
-			
-			<?php 
-				require_once ('lib/Control.php');
-				if(Control::checkLevel($_SESSION["LEVEL"])){
-			?>
+		</ul>
+	</div>
+</div>	
+
+<!-- Menu For LEVEL ADMIN -->
+<?php 
+	require_once ('lib/Control.php');
+	if(Control::checkLevel($_SESSION["LEVEL"])){
+?>
+<div class="panel panel-default">
+	<div class="panel-heading">
+		<span class="glyphicon glyphicon-wrench"></span>
+		&nbsp;&nbsp;<strong>จัดการผู้ใช้งาน</strong>
+	</div>
+	
+	<div class="panel-body">
+		<ul class="nav nav-pills nav-stacked">
 			<li>
 				<a href="index.php?v=AddUser">
 				<span class="glyphicon glyphicon-chevron-right"></span>
 				&nbsp;เพิ่มผู้ใช้งาน
 				</a>
 			</li>
-			<?php } ?>
+			<li>
+				<a href="index.php?v=DeleteUser">
+				<span class="glyphicon glyphicon-chevron-right"></span>
+				&nbsp;ลบผู้ใช้งาน
+				</a>
+			</li>
 		</ul>
 	</div>
-</div>	
+</div>
+<?php } ?>
+<!-- END Menu For LEVEL ADMIN -->

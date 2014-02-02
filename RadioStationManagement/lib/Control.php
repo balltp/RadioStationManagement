@@ -2,18 +2,33 @@
 	class Control{
 		
 		public function content($v=''){
-			if(empty($v) || $v == "Upload"){
+			if(empty($v) || $v == "Upload")
+			{
 				return require_once ('views/upload.php');
-			}else if($v == "List"){
+			}
+			else if($v == "List")
+			{
 				return require_once ('views/list.php');
-			}else if($v == "Delete"){
+			}
+			else if($v == "Delete")
+			{
 				return require_once ('views/delete.php');
-			}else if($v == "AddUser"){
+			}
+			else if($v == "AddUser")
+			{
 				return require_once ('views/adduser.php');
-			}else if($v == "permission"){
+			}
+			else if($v == "permission")
+			{
 				return require_once ('views/permission.php');
-			}else if($v =="play"){
+			}
+			else if($v =="play")
+			{
 				return require_once ('views/play.php');
+			}
+			else if($v == "DeleteUser")
+			{
+				return require_once ('views/deleteuser.php');
 			}
 		}
 		
