@@ -31,8 +31,8 @@
 					<td><?php echo $data['DayTime']; ?></td>
 					<td><?php echo $data['List']; ?></td>
 					<td>
-					<a href="index.php?v=play&name=<?php echo $data['FilesName'];?>" class = "btn btn-success btn-xs">ฟังเพลง </a>
-					<button onClick="JavaScript:window.location='index.php?v=Delete&ID=<?php echo $data['FilesID']?>'" class="btn btn-xs btn-danger">ลบ</button>
+					<a href="index.php?v=play&name=<?php echo $data['FilesName']; ?>" class = "btn btn-success btn-xs"><span class="glyphicon glyphicon-music"></span></a>
+					<a href="index.php?v=Delete&ID=<?php echo $data['FilesID']; ?>" class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-trash"></span></a>
 					</td>
 				
 				</tr>
