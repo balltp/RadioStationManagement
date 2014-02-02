@@ -12,6 +12,8 @@
 				return require_once ('views/adduser.php');
 			}else if($v == "permission"){
 				return require_once ('views/permission.php');
+			}else if($v =="play"){
+				return require_once ('views/play.php');
 			}
 		}
 		

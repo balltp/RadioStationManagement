@@ -30,7 +30,11 @@
 					<td><?php echo $data['DayWeek']; ?></td>
 					<td><?php echo $data['DayTime']; ?></td>
 					<td><?php echo $data['List']; ?></td>
-					<td><button onClick="JavaScript:window.location='index.php?v=Delete&ID=<?php echo $data['FilesID']?>'" class="btn btn-xs btn-danger">ลบ</button></td>
+					<td>
+					<a href="index.php?v=play&name=<?php echo $data['FilesName'];?>" class = "btn btn-success btn-xs">ฟังเพลง </a>
+					<button onClick="JavaScript:window.location='index.php?v=Delete&ID=<?php echo $data['FilesID']?>'" class="btn btn-xs btn-danger">ลบ</button>
+					</td>
+				
 				</tr>
 			<?php
 				}
