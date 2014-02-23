@@ -6,6 +6,12 @@
 	<div class="panel-body ">
 		<ul class="nav nav-pills nav-stacked">
 			<li>
+				<a href="index.php">
+				<span class="glyphicon glyphicon-chevron-right"></span>
+				&nbsp;หน้าหลัก
+				</a>
+			</li>
+			<li>
 				<a href="index.php?v=Upload">
 				<span class="glyphicon glyphicon-chevron-right"></span>
 				&nbsp;อัพโหลดไฟล์เพลง

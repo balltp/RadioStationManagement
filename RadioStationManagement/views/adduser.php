@@ -10,7 +10,7 @@
 		<h4><span class="glyphicon glyphicon-user"></span><strong>&nbsp;เพิ่มผู้ใช้งาน</strong></h4>
 	</div>
 	<div class="panel-body">
-		<form action="" method="POST" entype="multipart/form-data">
+		<form action="controller/adduser.php" method="POST" entype="multipart/form-data">
 			<table align="center" width="500">
 				<tr align="right" height="50">
 					<td>NAME : </td>

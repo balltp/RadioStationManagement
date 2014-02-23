@@ -18,7 +18,9 @@
 	<nav class="navbar navbar-inverse navbar-fixed-top">
 		<div class="container">
 			<div class="navbar-header">
-				<a class="navbar-brand">SUT-RADIO : ระบบจัดการไฟล์เพลง</a>
+				<a class="navbar-brand">
+					<div style="font-size: 25px;">SUT-RADIO</div>	
+				</a>
 			</div>	
 			<?php if(!empty($_SESSION["USER"])){?>
 			<!-- LOGOUT -->

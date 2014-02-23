@@ -2,7 +2,11 @@
 	class Control{
 		
 		public function content($v=''){
-			if(empty($v) || $v == "Upload")
+			if(empty($v))
+			{
+				return require_once('views/table.php');
+			}
+			else if($v == "Upload")
 			{
 				return require_once ('views/upload.php');
 			}
