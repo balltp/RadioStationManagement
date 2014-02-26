@@ -1,6 +1,8 @@
 <?php
+
 class File{
 	private $name;
+		
 	
 	//Name File
 	public function getName(){
@@ -22,7 +24,8 @@ class File{
 		$s = $today["seconds"];
 		$str = substr($m,0,3).strtolower(substr($w,0,2))."-".$h.$mn.$s;
 		
-		$filename = $total."_".$str.strtolower(substr($file["name"], -4));
+		
+		$filename = $total."_".$_POST["upload_name"]."_".$str.strtolower(substr($file["name"], -4));
 		$this->name = $filename;
 		$path = "..".$path;
 		echo $path."<br>";
