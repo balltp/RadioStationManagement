@@ -8,7 +8,7 @@
 			}
 			else if($v == "Upload")
 			{
-				return require_once ('views/upload.php');
+				return require_once ('ajax-upload/index.php');
 			}
 			else if($v == "List")
 			{

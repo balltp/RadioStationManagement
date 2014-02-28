@@ -31,7 +31,3 @@
 	$db->query($sql);
 
 ?>
-
-<script langauge="JavaScript">
-	window.location='../index.php';
-</script>

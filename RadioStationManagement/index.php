@@ -6,6 +6,7 @@
 <head>
 	<title>ระบบจัดการไฟล์เพลง @ SUT-RADIO</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<!-- BOOTSTRAP -->
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
 	<link href="bootstrap/css/bootstrap-theme.min.css" rel="stylesheet" media="screen">

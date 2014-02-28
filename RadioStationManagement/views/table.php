@@ -1,5 +1,9 @@
 <?php
 	require_once ('lib/DB.php');
+	require_once ('lib/File.php');
+	
+	$File = new File();
+
 	
 	$DayOfWeek = array(
 					'1' => array('0' => 'อาทิตย์', '1' => 'Sunday'),
@@ -32,7 +36,7 @@
 	$sql = "SELECT DayTime, DayWeek FROM user_upload";
 	$db->query($sql);
 	$ArrData = $db->fetch_array();
-		
+	echo print_r($ArrData);
 ?>
 	
 <div class="panel panel-primary">
@@ -69,7 +73,11 @@
 				</td>
 				<?php }else{?>
 				<td align="center">
-					-
+					<?php 
+					
+					echo $DayOfWeek[$i][$j]."<br>".$TimeOfDay[$i];
+							//echo "<br>".$ArrData[0][DayWeek]; 
+							?>
 				</td>
 				<?php }}?>
 			</tr>

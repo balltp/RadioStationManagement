@@ -28,8 +28,11 @@ class File{
 		$filename = $total."_".$_POST["upload_name"]."_".$str.strtolower(substr($file["name"], -4));
 		$this->name = $filename;
 		$path = "..".$path;
-		echo $path."<br>";
-		move_uploaded_file($file["tmp_name"],$path.$filename);
+		if(move_uploaded_file($file["tmp_name"],$path.$filename)){
+			echo "<span class='label label-primary'>บันทึกข้อมูลเรียบร้อย</span>";
+		}else{
+			echo "<span class='label label-danger'>บันทึกข้อมูล ไม่สำเร็จ</span>";
+		}
 	}
 	
 	//Path File

@@ -1,3 +1,28 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>Ajax Upload and Resize with jQuery and PHP - Demo</title>
+	<script type="text/javascript" src="ajax-upload/js/jquery-1.10.2.min.js"></script>
+	<script type="text/javascript" src="ajax-upload/js/jquery.form.min.js"></script>
+	<script type="text/javascript" src="ajax-upload/js/ajax.js"></script>
+	<script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
+	<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<link href="ajax-upload/style/style.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div id="alert" style="display: none;">
+<div id="upload-wrapper">
+	<div align="center">
+		<div id="msg"></div>
+		<div class="progress progress-striped active" id="progressbox" style="display:none;">
+			<div class="progress-bar progress-bar-primary" id="progressbar"></div>
+			<div id="statustxt">0%</div>
+		</div>
+		<div id="output" style="font-size: 25px;"></div>
+	</div>
+</div>
+</div>
 <div class="panel panel-primary">
 	<!-- HEADING PANEL CONTENT -->
 	<div class="panel-heading">
@@ -5,13 +30,13 @@
 	</div>
 	
 	<!-- BODY PANEL CONTENT -->
-	<form id="MyUploadForm" onSubmit="return false" action="controller/upload.php?user=<?php echo $_SESSION['USER'];?>" method="POST" enctype="multipart/form-data">
+	<form action="controller/upload.php?user=<?php echo $_SESSION['USER'];?>" onSubmit="return false" method="post" enctype="multipart/form-data" id="MyUploadForm">
 		<table class="table table-bordered">
 			<tr>
 				<td>
-					<div class="pull-right">
-					<input type="submit" class="btn btn-primary" id="submit-btn1" value="Upload" />
-						
+					<div align="right">
+						<input type="submit" class="btn btn-primary" id="submit-btn1" value="Upload" />
+						<img src="ajax-upload/images/ajax-loader.gif" id="loading-img" style="display:none;" alt="Please Wait"/>
 					</div>						
 				</td>
 			</tr>
@@ -89,12 +114,6 @@
 									<td align="right"><strong><h3>ไฟล์เพลง :&nbsp;&nbsp;</h3></strong></td>
 									<td>
 										<input type="file" name="upload_file" id="upload_file" class="btn btn-warning" />
-										<img src="ajax-upload/images/ajax-loader.gif" id="loading-img" style="display:none;" alt="Please Wait"/>
-										<div class="progress progress-striped active" id="progressbox" style="display:none;">
-											<div class="progress-bar progress-bar-warning" id="progressbar"></div>
-											<div id="statustxt">0%</div>
-										</div>
-										<div id="output"></div>
 									</td>
 								</tr>
 								<!-- 
@@ -118,3 +137,5 @@
 	
 </div>
 
+</body>
+</html>
