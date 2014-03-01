@@ -7,7 +7,7 @@
 
 <div class="panel panel-primary">
 	<div class="panel-heading">
-		แสดงรายการที่ได้อัพโหลด
+		<strong>แสดงรายการที่ได้อัพโหลด</strong>
 	</div>
 
 	<div class="panel-body">

@@ -20,7 +20,7 @@
 		<div class="container">
 			<div class="navbar-header">
 				<a class="navbar-brand">
-					<div style="font-size: 25px;">SUT-RADIO</div>	
+					<div class="glyphicon glyphicon-music" style="font-size: 25px;"> SUT-RADIO</div> ระบบจัดการไฟล์เพลง	
 				</a>
 			</div>	
 			<?php if(!empty($_SESSION["USER"])){?>
@@ -33,7 +33,7 @@
 			<!-- WELLCOME -->
 			<ul class="nav navbar-nav navbar-right">
 				<li>
-					<a  class="">สวัสดีคุณ : <?php echo $_SESSION['USER']; ?></a>
+					<a  class="">สวัสดีคุณ : <b><?php echo strtoupper($_SESSION['USER']); ?></b></a>
 				</li>
 			</ul>
 			<?php }?>
@@ -65,7 +65,14 @@
 		</div>
 	</div>
 	<!-- END CONTENT LAOUT -->
-	
+	<!-- FOOTER -->
+	<div class="footer">
+		<center><font color="white">
+    		Display the best results on <strong>Mozilla Firefox</strong><br>
+    		<a href="http://getbootstrap.com">Bootstrap</a></font>
+  		</center>
+  	</div>
+	<!-- END FOOTER -->
 	<?php 
 		}else{ 
 			Control::viewLogin();

@@ -26,7 +26,7 @@
 <div class="panel panel-primary">
 	<!-- HEADING PANEL CONTENT -->
 	<div class="panel-heading">
-		&nbsp;<strong>Upload ไฟล์เพลง</strong>
+		&nbsp;<strong>อัพโหลดไฟล์เพลง</strong>
 	</div>
 	
 	<!-- BODY PANEL CONTENT -->
@@ -36,6 +36,7 @@
 				<td>
 					<div align="right">
 						<input type="submit" class="btn btn-primary" id="submit-btn1" value="Upload" />
+						<input type="reset" class="btn btn-primary" id="submit-btn1" value="Cancel" />
 						<img src="ajax-upload/images/ajax-loader.gif" id="loading-img" style="display:none;" alt="Please Wait"/>
 					</div>						
 				</td>
@@ -75,7 +76,6 @@
 									<td align="right"><strong><h3>วัน :&nbsp;&nbsp;</h3></strong></td>
 									<td>
 										<select name="upload_date" class="form-control">
-											<option>=== กรุณาเลือก ===</option>
 											<option value="Sunday">อาทิตย์</option>
 											<option value="Monday">จันทร์</option>
 											<option value="Tuesday">อังคาร</option>
@@ -91,7 +91,6 @@
 									<td align="right"><strong><h3>เวลา :&nbsp;&nbsp;</h3></strong></td>
 									<td>
 										<select name="upload_time" class="form-control">
-											<option>=== กรุณาเลือก ===</option>
 											<option value="06.00">06.00 - 06.59 น.</option>
 									        <option value="07.00">07.00 - 07.59 น.</option>
 									        <option value="08.00">08.00 - 08.59 น.</option>

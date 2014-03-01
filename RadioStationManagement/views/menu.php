@@ -1,13 +1,13 @@
 <div class="panel panel-primary">
 	<div class="panel-heading">
-		<span class="glyphicon glyphicon-hdd"></span>
+		<span class="glyphicon glyphicon-th-list"></span>
 		&nbsp;&nbsp;<strong>เมนูหลัก</strong>
 	</div>
 	<div class="panel-body ">
 		<ul class="nav nav-pills nav-stacked">
 			<li>
 				<a href="index.php">
-				<span class="glyphicon glyphicon-chevron-right"></span>
+				<span class="glyphicon glyphicon-home"></span>
 				&nbsp;หน้าหลัก
 				</a>
 			</li>
@@ -21,6 +21,12 @@
 				<a href="index.php?v=List">
 				<span class="glyphicon glyphicon-chevron-right"></span>
 				&nbsp;เพลงของฉัน
+				</a>
+			</li>
+			<li>
+				<a href="index.php?v=Table">
+				<span class="glyphicon glyphicon-chevron-right"></span>
+				&nbsp;ตารางรายการเพลง
 				</a>
 			</li>
 		</ul>

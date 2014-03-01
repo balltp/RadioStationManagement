@@ -4,7 +4,7 @@
 		public function content($v=''){
 			if(empty($v))
 			{
-				return require_once('views/table.php');
+				return require_once('views/jamboContent.php');
 			}
 			else if($v == "Upload")
 			{
@@ -33,6 +33,10 @@
 			else if($v == "DeleteUser")
 			{
 				return require_once ('views/deleteuser.php');
+			}
+			else if($v == "Table")
+			{
+				return require_once('views/table.php');
 			}
 		}
 		

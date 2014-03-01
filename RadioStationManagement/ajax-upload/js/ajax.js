@@ -61,6 +61,7 @@ function beforeSubmit(){
         {
 			case 'video/mp4':
             case 'audio/mp3':
+            case 'audio/mpeg':
                 break;
             default:
                 $("#output").html("<span class='label label-success' style='font-size: 25px;'><b>"+ftype+"</b> ไฟล์เสียงที่ไม่สนับสนุน!</span>");
@@ -68,11 +69,11 @@ function beforeSubmit(){
         }
 		
 		//Allowed file size is less than 50 MB (1048576)*50
-		if(fsize>(1048576*50)) 
-		{
-			$("#output").html("<span class='label label-success' style='font-size: 25px;'><b>"+bytesToSize(fsize) +"</b> ขนาดของไฟล์ใหญ่เกิน 50 MB.</span>");
-			return false
-		}
+		//if(fsize>(1048576*50)) 
+		//{
+		//	$("#output").html("<span class='label label-success' style='font-size: 25px;'><b>"+bytesToSize(fsize) +"</b> ขนาดของไฟล์ใหญ่เกิน 50 MB.</span>");
+		//	return false
+		//}
 		
 		//Progress bar
 		progressbox.show(); //show progressbar
