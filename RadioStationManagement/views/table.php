@@ -112,11 +112,12 @@
 						for($k=0;$k<count($xy);$k+=2){
 							if($xy[$k]==$j && $xy[$k+1]==$i){
 					?>
+					<!-- Display -->
 					<a class="btn btn-info">
 						<span class="glyphicon glyphicon-ok-sign"></span>
 						&nbsp;มีไฟล์
 					</a>
-					<?php 	
+					<?php 	break;
 							}
 						}
 					?>

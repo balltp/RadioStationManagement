@@ -1,6 +1,6 @@
 	<div class="container" style="margin-top: 150px">
 		<div class="row">
-			<div class="col-md-5 col-md-offset-4 well">
+			<div class="col-md-4 col-md-offset-4 well">
 				<form class="form-horizontal" role="form" action="controller/login.php" method="POST">
 				  <?php if(!empty($_GET['errorUS'])){?>
 				  <div class="alert alert-danger">

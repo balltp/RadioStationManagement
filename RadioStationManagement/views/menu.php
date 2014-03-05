@@ -58,6 +58,12 @@
 				&nbsp;ลบผู้ใช้งาน
 				</a>
 			</li>
+			<li>
+				<a href="index.php?v=Announce">
+				<span class="glyphicon glyphicon-chevron-right"></span>
+				&nbsp;หอกระจายข่าว
+				</a>
+			</li>
 		</ul>
 	</div>
 </div>

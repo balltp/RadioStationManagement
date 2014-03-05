@@ -38,6 +38,10 @@
 			{
 				return require_once('views/table.php');
 			}
+			else if($v == "Announce")
+			{
+				return require_once('views/announce_edit.php');
+			}
 		}
 		
 		public function checkLevel($level){
