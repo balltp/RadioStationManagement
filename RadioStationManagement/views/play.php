@@ -1,5 +1,7 @@
+
 <?php 
-	require 'lib/DB.php';
+
+	require_once ('lib/DB.php');
 	$db = new DB();
 	
 	$sql = "SELECT * FROM user_upload WHERE FilesID = '".$_GET['ID']."'";
@@ -15,6 +17,7 @@
 		$path = "http://".$host.$subhost.$rs['FilesPath'].$rs['FilesName'];
 		$file_name = $rs['FilesName'];
 	}
+
 ?>
 
 <div class="modal-dialog">

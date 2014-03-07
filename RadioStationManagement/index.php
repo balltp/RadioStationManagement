@@ -19,12 +19,14 @@
 	<nav class="navbar-inverse navbar-static-top">
 	<div class="container">
 		<div class="container well-header">
-			<div class="navbar-header"><table width="300" border="0"><td>
-			<div class="navbar-brand glyphicon glyphicon-music" style="font-size: 25px;"></div></td>
-					<td><a class="navbar-brand" href="index.php">
-					<div style="font-size: 25px;"> SUT-RADIO </div>ระบบจัดการไฟล์เพลง
+			<div class="navbar-header">
+				<div class="navbar-brand glyphicon glyphicon-music" style="font-size: 25px;"></div>
+					<a class="navbar-brand" href="index.php">
+					<div style="font-size: 25px;"> SUT-RADIO </div>
+					ระบบจัดการไฟล์เพลง
 					</a>
-					</td></table>
+					<!-- ANNOUNCEMENT VIEW -->
+					<?php include ('views/announcement.php');?>
 			</div>
 			<?php if(!empty($_SESSION["USER"])){?><br/>
 			<!-- LOGOUT -->
@@ -42,9 +44,9 @@
 					<a class="glyphicon glyphicon-user"> สวัสดีคุณ : <b><?php echo strtoupper($_SESSION['USER']); ?></b></a>
 				</li>
 			</ul>
-			<?php }?><?php include ('views/announcement.php');?>
-			</div></div>
-			
+			<?php }?>
+			</div>
+		</div>
 	</nav>
 	<!-- END HEADER TOP  -->
 
@@ -95,6 +97,5 @@
 			Control::viewLogin();
 		} 
 	?>
-	
 </body>
 </html>

@@ -1,14 +1,19 @@
 <?php
 	require_once ('lib/DB.php');
 	$db = new DB();
-	$objDB = mysql_select_db("db_radio");
-	$strSQL = "SELECT * FROM announce";
-	$objQuery = mysql_query($strSQL) or die ("Error Query [".$strSQL."]");
-	$objResult = mysql_fetch_array($objQuery);
+
+	$sql = "SELECT * FROM announce";
+	$db->query($sql);
+	$data = $db->fetch_array();
 ?>
-<table width="500" border="1" bordercolor="red">
-  	<tr><td>
-	<font color="#FF6600">
-		<marquee behavior="scroll" scrollamount="5" direction="left" scrolldelay="50"><b><?=$objResult["an_text"];?></b></marquee>
-	</font>
-	</td></tr></table>
+
+<table width="500" border="1" bordercolor="red" style="margin-top: 20px;">
+  	<tr>
+  		<td>
+			<font color="#FF6600">
+				<marquee behavior="scroll" scrollamount="5" direction="left" scrolldelay="100">
+				<b>ประกาศจากทีมงาน : <?php echo $data[0][an_text]; ?></b></marquee>
+			</font>
+		</td>
+	</tr>
+</table>

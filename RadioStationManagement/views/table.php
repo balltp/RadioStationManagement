@@ -113,7 +113,7 @@
 							if($xy[$k]==$j && $xy[$k+1]==$i){
 					?>
 					<!-- Display -->
-					<a class="btn btn-info">
+					<a class="btn btn-info" onClick="show()">
 						<span class="glyphicon glyphicon-ok-sign"></span>
 						&nbsp;มีไฟล์
 					</a>
@@ -128,3 +128,26 @@
 		</table>
 	</div>
 </div>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+      </div>
+      <div class="modal-body">
+      	
+      </div>
+      <div class="modal-footer">
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+	function show() {
+		$('#myModal').modal('show');
+	}
+</script>

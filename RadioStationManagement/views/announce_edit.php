@@ -18,7 +18,7 @@
 		</div>
 			<table align="center" width="100">
 					<td><tr align="center">
-					<td><input name="an_text" type="text" id="an_text" size="100" placeholder="ประกาศจากทีมงาน : "/></td>
+					<td><input name="an_text" type="text" id="an_text" size="100" placeholder=""/></td>
 					</tr></td>
 			</table>
 		</form>
