@@ -1,27 +1,76 @@
+<?php 
+	require_once 'lib/DB.php';
+	require_once 'lib/FN.php';
+	
+	$db = new DB();
+	$db2 = new DB();
+	$fn = new FN();
+	
+	$sql = "SELECT * FROM radio_list";
+	$db->query($sql);
+	$Data = $db->fetch_array();
+?>
 <!DOCTYPE HTML>
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<title>Ajax Upload and Resize with jQuery and PHP - Demo</title>
 	<script type="text/javascript" src="ajax-upload/js/jquery-1.10.2.min.js"></script>
 	<script type="text/javascript" src="ajax-upload/js/jquery.form.min.js"></script>
 	<script type="text/javascript" src="ajax-upload/js/ajax.js"></script>
 	<script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
 	<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
 	<link href="ajax-upload/style/style.css" rel="stylesheet" type="text/css">
+
 </head>
 <body>
+
+<script language = "JavaScript">
+		function ListProvince(SelectValue)
+		{
+			MyUploadForm.upload_date.length = 0
+			
+			var myOption = new Option('','')  
+			MyUploadForm.upload_date.options[MyUploadForm.upload_date.length]= myOption
+
+			<?
+			$intRows = 0;
+			$sql2 = "SELECT * FROM radio_sublist ORDER BY Sid ASC";
+			$db2->query($sql2);
+			$intRows = 0;
+			foreach($db2->fetch_array() as $rs)
+			{
+			$intRows++;
+			?>			
+				x = <?php echo $intRows;?>;
+				mySubList = new Array();
+				
+				strGroup = "<?php echo $rs["Lid"];?>";
+				strValue = "<?php echo $rs["day"].":".$rs["time"];?>";
+				strItem = "<?php echo "[".$fn->timeToBetween($rs["time"])."] ".$fn->dateToTH($rs["day"]);?>";
+				mySubList[x,0] = strItem;
+				mySubList[x,1] = strGroup;
+				mySubList[x,2] = strValue;
+				if (mySubList[x,1] == SelectValue){
+					var myOption = new Option(mySubList[x,0], mySubList[x,2])  
+					MyUploadForm.upload_date.options[MyUploadForm.upload_date.length]= myOption					
+				}
+			<?
+			}
+			?>																
+		}
+</script>
+			
 <div id="alert" style="display: none;">
-<div id="upload-wrapper">
-	<div align="center">
-		<div id="msg"></div>
-		<div class="progress progress-striped active" id="progressbox" style="display:none;">
-			<div class="progress-bar progress-bar-primary" id="progressbar"></div>
-			<div id="statustxt">0%</div>
+	<div id="upload-wrapper">
+		<div align="center">
+			<div id="msg"></div>
+			<div class="progress progress-striped active" id="progressbox" style="display:none;">
+				<div class="progress-bar progress-bar-primary" id="progressbar"></div>
+				<div id="statustxt">0%</div>
+			</div>
+			<div id="output" style="font-size: 25px;"></div>
 		</div>
-		<div id="output" style="font-size: 25px;"></div>
 	</div>
-</div>
 </div>
 <div class="panel panel-primary">
 	<!-- HEADING PANEL CONTENT -->
@@ -30,7 +79,7 @@
 	</div>
 	
 	<!-- BODY PANEL CONTENT -->
-	<form action="controller/upload.php?user=<?php echo $_SESSION['USER'];?>" onSubmit="return false" method="post" enctype="multipart/form-data" id="MyUploadForm">
+	<form action="controller/upload.php?user=<?php echo $_SESSION['USER'];?>" onSubmit="return false" method="post" enctype="multipart/form-data" id="MyUploadForm" name="MyUploadForm">
 		<table class="table table-bordered">
 			<tr>
 				<td>
@@ -55,76 +104,27 @@
 								<tr height="50">
 									<td align="right"><strong><h3>ชื่อรายการ :&nbsp;&nbsp;</h3></strong></td>
 									<td>
-								 		<select name="upload_name" class="form-control">
-									        <option value="KasetTalk" selected="selected">เกษตรสนทนา</option>
-									        <option value="MorningTamma">ฟังธรรมยามเช้า</option>
-									        <option value="30mSUT">30 นาทีกับ มทส.</option>
-									        <option value="UniSong">เพลินเพลงสถาบัน</option>
-									        <option value="LangAndMusic">ภาษากับดนตรี</option>
-									        <option value="LawAround">รอบรู้กฏหมาย</option>
-									        <option value="3mEng">3 นาทีกับศัพท์ภาษาอังกฤษ</option>
-									        <option value="DiscoverySUT">สาระน่ารู้ จาก มทส.</option>
-									        <option value="EngineeringTalk">คุยกับนายช่าง</option>
-									        <option value="SUTAllAround">รอบรั้ว มทส.</option>
-									        <option value="MiddayTamma">ฟังธรรมยามเที่ยง</option>
-									        <option value="TeenTalk">เพื่อนกันวัยทีน</option>
+								 		<select name="upload_name" class="form-control" onChange="ListProvince(this.value)">
+								 			<option selected value=""></option>
+								 			<?php foreach ($Data as $rs){?>
+									        <option value="<?php echo $rs['Lid']?>"><?php echo $rs['title']; ?></option>
+									       	<?php } ?>
 								   		</select>
    									</td>
 								</tr>
 								
 								<tr height="50">
-									<td align="right"><strong><h3>วัน :&nbsp;&nbsp;</h3></strong></td>
+									<td align="right"><strong><h3>[เวลา] วัน :&nbsp;&nbsp;</h3></strong></td>
 									<td>
-										<select name="upload_date" class="form-control">
-											<option value="Sunday">อาทิตย์</option>
-											<option value="Monday">จันทร์</option>
-											<option value="Tuesday">อังคาร</option>
-											<option value="Wednesday">พุธ</option>
-											<option value="Thursday">พฤหัส</option>
-											<option value="Friday">ศุกร์</option>
-											<option value="Saturday">เสาร์</option>
-										</select>
+										<select id="upload_date" name="upload_date" class="form-control"></select>
 									</td>
 								</tr>
-								
-								<tr height="50">
-									<td align="right"><strong><h3>เวลา :&nbsp;&nbsp;</h3></strong></td>
-									<td>
-										<select name="upload_time" class="form-control">
-											<option value="06.00">06.00 - 06.59 น.</option>
-									        <option value="07.00">07.00 - 07.59 น.</option>
-									        <option value="08.00">08.00 - 08.59 น.</option>
-									        <option value="09.00">09.00 - 09.59 น.</option>
-									        <option value="10.00">10.00 - 10.59 น.</option>
-									        <option value="11.00">11.00 - 11.59 น.</option>
-									        <option value="12.00">12.00 - 12.59 น.</option>
-									        <option value="13.00">13.00 - 13.59 น.</option>
-									        <option value="14.00">14.00 - 14.59 น.</option>
-									        <option value="15.00">15.00 - 15.59 น.</option>
-									        <option value="16.00">16.00 - 16.59 น.</option>
-									        <option value="17.00">17.00 - 17.59 น.</option>
-									        <option value="18.00">18.00 - 18.59 น.</option>
-									        <option value="19.00">19.00 - 20.00 น.</option>
-										</select>
-									</td>
-								</tr>
-								
 								<tr height="50">	
 									<td align="right"><strong><h3>ไฟล์เพลง :&nbsp;&nbsp;</h3></strong></td>
 									<td>
 										<input type="file" name="upload_file" id="upload_file" class="btn btn-warning" />
 									</td>
 								</tr>
-								<!-- 
-								<tr height="50">
-									<td align="right"><strong><h3>ลองฟัง :&nbsp;&nbsp;</h3></strong></td>
-									<td>
-										<audio controls>
-											<source src="http://localhost/RadioStationManagement/RadioStationManagement/files/Balada.mp3" type="audio/mpeg" />
-										</audio>
-									</td>
-								</tr>
-							 	-->
 							</table>								
 						</div>			
 					</div>						
@@ -135,6 +135,6 @@
 	<!-- END BODY PANEL CONTENT -->
 	
 </div>
-
+		
 </body>
 </html>

@@ -29,7 +29,7 @@ CREATE TABLE `announce` (
 -- dump ตาราง `announce`
 -- 
 
-INSERT INTO `announce` VALUES (000, 'ประกาศจากทีมงาน : ทดสอบระบบหอกระจายข่าว');
+INSERT INTO `announce` VALUES (000, 'ทดสอบระบบหอกระจายข่าว');
 
 -- --------------------------------------------------------
 
@@ -73,7 +73,31 @@ CREATE TABLE `user_upload` (
   PRIMARY KEY (`FilesID`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
+
 -- 
--- dump ตาราง `user_upload`
+-- โครงสร้างตาราง `radio_sublist`
 -- 
+
+CREATE TABLE `radio_sublist` (
+  `Sid` int(5) unsigned zerofill NOT NULL auto_increment,
+  `Lid` int(5) unsigned zerofill NOT NULL,
+  `day` varchar(20) collate utf8_unicode_ci NOT NULL,
+  `time` varchar(15) collate utf8_unicode_ci NOT NULL,
+  `order` int(2) unsigned zerofill NOT NULL,
+  `status` enum('Y','N') collate utf8_unicode_ci NOT NULL default 'N',
+  PRIMARY KEY  (`Sid`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=25 ;
+
+-- 
+-- โครงสร้างตาราง `radio_list`
+-- 
+
+CREATE TABLE `radio_list` (
+  `Lid` int(5) unsigned zerofill NOT NULL auto_increment,
+  `title` text collate utf8_unicode_ci NOT NULL,
+  `title_en` text collate utf8_unicode_ci NOT NULL,
+  PRIMARY KEY  (`Lid`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=19 ;
+
+
 

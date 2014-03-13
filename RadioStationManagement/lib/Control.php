@@ -42,6 +42,22 @@
 			{
 				return require_once('views/announce_edit.php');
 			}
+			else if($v == "ManageList")
+			{
+				return require_once('views/managelist.php');
+			}
+			else if($v == "AddSubList")
+			{
+				return require_once('views/addsublist.php');
+			}
+			else if($v == "EditList")
+			{
+				return require_once('views/editlist.php');
+			}
+			else if($v == "ManageSubList")
+			{
+				return require_once ('views/managesublist.php');
+			}
 		}
 		
 		public function checkLevel($level){

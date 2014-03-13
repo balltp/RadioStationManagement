@@ -7,7 +7,7 @@
 	$data = $db->fetch_array();
 ?>
 
-<table width="500" border="1" bordercolor="red" style="margin-top: 20px;">
+<table width="600px" border="1" bordercolor="red" style="margin-top: 20px;">
   	<tr>
   		<td>
 			<font color="#FF6600">

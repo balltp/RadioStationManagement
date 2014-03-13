@@ -12,8 +12,8 @@
 			mysql_select_db(DB_NAME);
 		}
 	
-		public function query($strsql){
-			$this->rs = mysql_query($strsql);
+		public function query($sql){
+			$this->rs = mysql_query($sql);
 		}
 	
 		public function num_rows(){

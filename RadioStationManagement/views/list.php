@@ -2,7 +2,17 @@
 	require_once ('lib/DB.php');
 	$mod = (1024*1024);
 	$db = new DB();
-	$db->query("SELECT * FROM user_upload WHERE Name = '".$_SESSION['USER']."' ORDER BY FilesID ASC");	
+	
+	if($_SESSION['USER']!="admin"){
+		$sql = "SELECT * 
+			FROM user_upload 
+			WHERE Name = '".$_SESSION['USER']."' ORDER BY FilesID ASC";
+	}else{
+		$sql = "SELECT *
+			FROM user_upload
+			ORDER BY FilesID ASC";
+	}
+	$db->query($sql);	
 ?>
 
 <div class="panel panel-primary">
