@@ -5,17 +5,17 @@ class File{
 		
 	
 	//Name File
-	public function getName(){
+	function getName(){
 		return $this->name;
 	}
 	
 	//Delete File
-	public function deleteFile($filesName, $path){
+	function deleteFile($filesName, $path){
 		@unlink("..".$path.$filesName);
 	}
 	
 	//Upload File 
-	public function uploadFile($path, $file = array(), $total){
+	function uploadFile($path, $file = array(), $total){
 		$today = getdate();
 		$m = $today["month"];
 		$w = $today["weekday"];
@@ -36,7 +36,7 @@ class File{
 	}
 	
 	//Path File
-	public function pathFile($time='', $date=''){
+	function pathFile($time='', $date=''){
 		if(!(file_exists("../files"))){
 			mkdir("../files");
 		}
@@ -54,5 +54,64 @@ class File{
 		
 		return $pathFile;
 	}
+	
+	//GET FILE NAME FROM DATABASE
+	function getFileNameDB($day, $time, $list){
+		require_once 'lib/DB.php';
+		$db = new DB();
+		
+		$sql = "SELECT *
+			FROM user_upload
+			WHERE DayWeek = '$day'
+				AND DayTime = '$time'
+				AND List = '$list'";
+		$db->query($sql);
+		$Data = $db->fetch_array();
+		
+		return $Data[0]['FilesName'];	
+	}
+	
+	//RENAME FILE ON SERVER AND DATABASE
+	function renameFile($oldname, $newname){
+		require_once '../lib/DB.php';
+		$db = new DB();
+		$db2 = new DB();
+	
+		$newname = $newname.substr($oldname, 2);
+		
+		$sql = "SELECT *
+			FROM user_upload
+			WHERE FilesName = '$oldname'";
+		$db->query($sql);
+		$Data = $db->fetch_array();
+		
+		$path = "..".$Data[0]['FilesPath'];
+		$old = $path.$oldname;
+		$new = $path.$newname;
+
+		if(rename($old, $new)){
+			$sql2 = "UPDATE user_upload
+				SET FilesName = '$newname'
+				WHERE FilesName = '$oldname'";
+			$db2->query($sql2);
+		}
+	}	
+	
+	//UPDATE ORDER IN DATABASE
+	function updateOrderDB($Sid, $Order){
+		require_once '../lib/DB.php';
+		$db = new DB();
+
+		for($i=0; $i<COUNT($Sid); $i++){
+			$Sorder = $Order[$i];
+			$id = $Sid[$i];
+
+			$sql = "UPDATE radio_sublist
+				SET Sorder = '$Sorder'
+				WHERE Sid = '$id'";
+			$db->query($sql);
+		}
+	}
+	
 }
 ?>

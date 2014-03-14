@@ -20,7 +20,7 @@
 	$sql2 = "SELECT * FROM radio_sublist WHERE Lid='".$List."' AND day='".$DayWeek."' AND time='".$DayTime."'";
 	$db2->query($sql2);
 	$Data2 = $db2->fetch_array();
-	$total = $Data2[0]['order'];
+	$total = $Data2[0]['Sorder'];
 	
 	//UPLOAD FILE TO SERVER
 	$FilesPath = $file->pathFile($DayTime, $DayWeek);	

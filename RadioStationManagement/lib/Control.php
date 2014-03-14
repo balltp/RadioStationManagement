@@ -58,6 +58,10 @@
 			{
 				return require_once ('views/managesublist.php');
 			}
+			else if($v == "EditSubList")
+			{
+				return require_once ('views/editsublist.php');
+			}
 		}
 		
 		public function checkLevel($level){

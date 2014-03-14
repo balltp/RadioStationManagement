@@ -8,7 +8,7 @@
 	$sql = "SELECT radio_list.*, radio_sublist.*
 		FROM radio_list, radio_sublist
 		WHERE radio_list.Lid = radio_sublist.Lid
-		ORDER BY radio_sublist.order ASC";
+		ORDER BY radio_sublist.Sorder ASC";
 	$db->query($sql);
 	$Data = $db->fetch_array();
 	
@@ -31,7 +31,7 @@
 	</div>
 	<div class="panel-body">
 		<?php for($i=0; $i<count($day); $i++){?>
-			<a href="index.php?v=ManageSubList&D=<?php echo $fn->dateToEN($day[$i]); ?>" class="btn btn-primary">
+			<a style="font-size: 18px" href="index.php?v=ManageSubList&D=<?php echo $fn->dateToEN($day[$i]); ?>" class="btn btn-primary">
 				<?php echo $day[$i]; ?>
 			</a>
 		<?php } ?>
@@ -41,21 +41,30 @@
 			for($i=0;$i<count($time)-1;$i++){
 			?>
 			<tr class="active" style="font-size: 18px">
-				<td><?php echo $fn->timeToBetween($time[$i]); ?></td>
+				<td>
+					<div class="btn btn-primary" style="font-size: 18px">
+					<span class="glyphicon glyphicon-time"></span>
+					<?php echo $fn->timeToBetween($time[$i]); ?>
+					</div>
+					<div onClick="JavaScript:window.location='index.php?v=EditSubList&T=<?php echo $time[$i]; ?>&D=<?php echo $_GET['D']; ?>'" id="btn" class="btn btn-warning" style="font-size: 18px">
+						<span class="glyphicon glyphicon-sort-by-order"></span>
+						แก้ไขลำดับไฟล์
+					</div>
+				</td>
 			</tr>
 			<tr>
 				<td>
-					<table class="table table-bordered">
+					<table class="table table-bordered" id="tb">
 						<tr class="success" style="font-size: 20px">
 							<td width="50px" align="center">#</td>
 							<td width="350px">รายการ</td>
-							<td width="100px">สถานะ</td>
-							<td></td>
+							<td>สถานะ</td>
+							<td width="80px"></td>
 						</tr>
 					<?php for($j=0; $j<count($Data); $j++){?>	
 						<?php if($time[$i]==$Data[$j]['time'] && $Data[$j]['day']==$_GET['D']){ ?>
 							<tr style="font-size: 18px">
-								<td><?php echo $Data[$j]['order']; ?></td>
+								<td><?php echo $Data[$j]['Sorder']; ?></td>
 								<td><?php echo $Data[$j]['title']; ?></td>
 								<td>
 								<?php if($Data[$j]['status']=="Y"){ ?>
@@ -71,9 +80,6 @@
 								<?php } ?>
 								</td>
 								<td align="center">
-									<a class="btn btn-warning">
-										<span class="glyphicon glyphicon-pencil"></span>
-									</a>
 									<a onClick="JavaScript:if(confirm('คุณต้องการลบ?')==true){
 												window.location='controller/delsublist.php?Sid=<?php echo $Data[$j]['Sid']; ?>'};" 
 										class="btn btn-danger" >
