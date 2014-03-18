@@ -6,6 +6,24 @@ class FN{
 	private $dayTH = array("อาทิตย์", "จันทร์", "อังคาร", "พุธ", "พฤหัสบดี", "ศุกร์", "เสาร์");
 	private $dayEN = array('Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday');
 	
+	//CHECK SUBLIST
+	function checkSubList($day, $time){
+		require_once 'lib/DB.php';
+		$db = new DB();
+		
+		$sql = "SELECT Sid 
+			FROM radio_sublist 
+			WHERE day='$day' 
+				AND time = '$time'";
+		$db->query($sql);
+		
+		if($db->fetch_array()){
+			return true;
+		}else{
+			return false;
+		}
+	}
+	
 	function dateToEN($day){
 		for($i=0; $i<7; $i++){
 			if($day==$this->dayTH[$i]){

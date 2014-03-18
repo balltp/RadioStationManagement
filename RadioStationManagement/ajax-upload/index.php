@@ -4,6 +4,8 @@
 	
 	$db = new DB();
 	$db2 = new DB();
+	$db3 = new DB();
+	
 	$fn = new FN();
 	
 	$sql = "SELECT * FROM radio_list";
@@ -25,14 +27,15 @@
 <body>
 
 <script language = "JavaScript">
-		function ListProvince(SelectValue)
+		function ListDate(SelectValue)
 		{
 			MyUploadForm.upload_date.length = 0
 			
 			var myOption = new Option('','')  
 			MyUploadForm.upload_date.options[MyUploadForm.upload_date.length]= myOption
 
-			<?
+			<?php
+			
 			$intRows = 0;
 			$sql2 = "SELECT * FROM radio_sublist ORDER BY Sid ASC";
 			$db2->query($sql2);
@@ -54,7 +57,7 @@
 					var myOption = new Option(mySubList[x,0], mySubList[x,2])  
 					MyUploadForm.upload_date.options[MyUploadForm.upload_date.length]= myOption					
 				}
-			<?
+			<?php
 			}
 			?>																
 		}
@@ -104,7 +107,7 @@
 								<tr height="50">
 									<td align="right"><strong><h3>ชื่อรายการ :&nbsp;&nbsp;</h3></strong></td>
 									<td>
-								 		<select name="upload_name" class="form-control" onChange="ListProvince(this.value)">
+								 		<select name="upload_name" class="form-control" onChange="ListDate(this.value)">
 								 			<option selected value=""></option>
 								 			<?php foreach ($Data as $rs){?>
 									        <option value="<?php echo $rs['Lid']?>"><?php echo $rs['title']; ?></option>
@@ -112,7 +115,6 @@
 								   		</select>
    									</td>
 								</tr>
-								
 								<tr height="50">
 									<td align="right"><strong><h3>[เวลา] วัน :&nbsp;&nbsp;</h3></strong></td>
 									<td>

@@ -1,8 +1,11 @@
 <?php
 	require_once 'lib/DB.php';
 	require_once 'lib/FN.php';
+	require_once 'lib/File.php';
+	
 	$db = new DB();
 	$fn = new FN();
+	$file = new File();
 
 	//JOIN TABLE RADIO_LIST AND RADIO_SUBLIST
 	$sql = "SELECT radio_list.*, radio_sublist.*
@@ -46,14 +49,17 @@
 					<span class="glyphicon glyphicon-time"></span>
 					<?php echo $fn->timeToBetween($time[$i]); ?>
 					</div>
+					<?php if($fn->checkSubList($_GET['D'], $time[$i])){ ?>
 					<div onClick="JavaScript:window.location='index.php?v=EditSubList&T=<?php echo $time[$i]; ?>&D=<?php echo $_GET['D']; ?>'" id="btn" class="btn btn-warning" style="font-size: 18px">
 						<span class="glyphicon glyphicon-sort-by-order"></span>
 						แก้ไขลำดับไฟล์
 					</div>
+					<?php } ?>
 				</td>
 			</tr>
 			<tr>
 				<td>
+					<?php if($fn->checkSubList($_GET['D'], $time[$i])){ ?>
 					<table class="table table-bordered" id="tb">
 						<tr class="success" style="font-size: 20px">
 							<td width="50px" align="center">#</td>
@@ -71,7 +77,20 @@
 									<span class="label label-success" style="font-size: 18px">
 									<span class="glyphicon glyphicon-ok-sign"></span>
 									อัพโหลดไฟล์แล้ว
-									</span></br>
+									</span>
+									<?php 
+										$D = $Data[$j]['day'];
+										$T = $Data[$j]['time'];
+										$L = $Data[$j]['Lid'];
+									?>
+									</br>
+									
+									<?php if($file->checkFile($D, $T, $L)){ ?>
+										<div style="font-size: 18px; color: red;">
+										<span class="glyphicon glyphicon-question-sign"></span>
+											<strong>ไม่พบไฟล์บน Server!</strong>
+										</div>
+									<?php } ?>
 								<?php }else{ ?>
 									<span class="label label-danger" style="font-size: 18px">
 									<span class="glyphicon glyphicon-minus-sign"></span>
@@ -90,6 +109,11 @@
 						<?php }?>				
 					<?php } ?>
 					</table>
+					<?php }else{ ?>
+						<div align="center">
+							<strong style="font-size: 20px;">ไม่พบรายการย่อย !</strong>
+						</div>
+					<?php } ?>
 				</td>
 			</tr>
 			<?php } ?>

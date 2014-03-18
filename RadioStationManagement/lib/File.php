@@ -4,17 +4,17 @@ class File{
 	private $name;
 		
 	
-	//Name File
+	//NAME FILE
 	function getName(){
 		return $this->name;
 	}
 	
-	//Delete File
+	//DELETE FILE
 	function deleteFile($filesName, $path){
 		@unlink("..".$path.$filesName);
 	}
 	
-	//Upload File 
+	//UPLOAD FILE TO SERVER 
 	function uploadFile($path, $file = array(), $total){
 		$today = getdate();
 		$m = $today["month"];
@@ -35,7 +35,7 @@ class File{
 		}
 	}
 	
-	//Path File
+	//PATH FILE
 	function pathFile($time='', $date=''){
 		if(!(file_exists("../files"))){
 			mkdir("../files");
@@ -50,7 +50,7 @@ class File{
 		}
 		
 		
-		$pathFile = "/files/".$time."/".$date."/";
+		$pathFile = "files/".$time."/".$date."/";
 		
 		return $pathFile;
 	}
@@ -110,6 +110,27 @@ class File{
 				SET Sorder = '$Sorder'
 				WHERE Sid = '$id'";
 			$db->query($sql);
+		}
+	}
+	
+	//CHECK FILE IN SERVER
+	function checkFile($day, $time, $list){
+		require_once 'lib/DB.php';
+		$db = new DB();
+		
+		$sql = "SELECT * 
+			FROM user_upload
+			WHERE DayWeek = '$day'
+				AND DayTime = '$time'
+				AND List = '$list'";
+		$db->query($sql);
+		$Data = $db->fetch_array();
+		$file = $Data[0]['FilesPath'].$Data[0]['FilesName'];
+
+		if(!file_exists($file)){
+			return true;
+		}else{
+			return false;
 		}
 	}
 	

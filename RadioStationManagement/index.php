@@ -74,24 +74,6 @@
 		</div>
 	</div>
 	<!-- END CONTENT LAOUT -->
-	<!-- FOOTER -->
-	<div class="footer" style="margin-bottom: 20px">
-		<center><font color="white">
-			<div class="btn-group">
-    		<div class="btn-group btn-group-xs">
-    		<button type="button" class="btn btn-info" onClick="JavaScript:window.location='#top';"><b>back-to-top</b></button>
-    		</div></div><br><hr width="30%" align="center">
-    		Contact Space
-    		<hr width="30%" align="center">
-    		Display the best results on <strong>Mozilla Firefox</strong><br>
-    		<div class="btn-group">
-    		<div class="btn-group btn-group-xs">
-    		&nbsp;for more style<button type="button" class="btn btn-primary" onClick="JavaScript:window.location='http://getbootstrap.com/';">getBootstrap</button>
-    		</div></div>
-    		</font>
-  		</center>
-  	</div>
-	<!-- END FOOTER -->
 	<?php 
 		}else{ 
 			Control::viewLogin();
