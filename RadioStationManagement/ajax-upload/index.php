@@ -8,7 +8,7 @@
 	
 	$fn = new FN();
 	
-	$sql = "SELECT * FROM radio_list";
+	$sql = "SELECT * FROM _list";
 	$db->query($sql);
 	$Data = $db->fetch_array();
 ?>
@@ -22,48 +22,51 @@
 	<script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
 	<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
 	<link href="ajax-upload/style/style.css" rel="stylesheet" type="text/css">
-
+	<link rel="stylesheet" href="jquery/development-bundle/themes/ui-lightness/jquery-ui.css">
 </head>
 <body>
+	<script src="jquery/js/jquery-ui-1.10.4.custom.min.js"></script>
+	
+	<script type="text/javascript">
+		$(function() {
+			$( "#datepicker" ).datepicker({ 
+					    minDate: 0, 
+					    maxDate: "+1M", 
+					    dateFormat: "yy-mm-dd", 
+					    dayNamesMin: [ "อา", "จ", "อ", "พ", "พฤ", "ศ", "ส" ],
+					    monthNames: [ "มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม" ]
+			});
+		});
 
-<script language = "JavaScript">
-		function ListDate(SelectValue)
-		{
-			MyUploadForm.upload_date.length = 0
+		function dropdownList(){
+			var Date = MyUploadForm.Date.value;	
 			
-			var myOption = new Option('','')  
-			MyUploadForm.upload_date.options[MyUploadForm.upload_date.length]= myOption
-
-			<?php
-			
-			$intRows = 0;
-			$sql2 = "SELECT * FROM radio_sublist ORDER BY Sid ASC";
-			$db2->query($sql2);
-			$intRows = 0;
-			foreach($db2->fetch_array() as $rs)
-			{
-			$intRows++;
-			?>			
-				x = <?php echo $intRows;?>;
-				mySubList = new Array();
-				
-				strGroup = "<?php echo $rs["Lid"];?>";
-				strValue = "<?php echo $rs["day"].":".$rs["time"];?>";
-				strItem = "<?php echo "[".$fn->timeToBetween($rs["time"])."] ".$fn->dateToTH($rs["day"]);?>";
-				mySubList[x,0] = strItem;
-				mySubList[x,1] = strGroup;
-				mySubList[x,2] = strValue;
-				if (mySubList[x,1] == SelectValue){
-					var myOption = new Option(mySubList[x,0], mySubList[x,2])  
-					MyUploadForm.upload_date.options[MyUploadForm.upload_date.length]= myOption					
-				}
-			<?php
-			}
-			?>																
+			$.ajax("ajax-upload/list3.php?Date="+Date)
+				.done(function(codeList){
+					$('#List').html(codeList);
+				})
+				.fail(function(){
+					alert("Fail");
+				});
 		}
-</script>
-			
-<div id="alert" style="display: none;">
+		
+		function dropdownTime(){
+			var Data = MyUploadForm.List.value;	
+			var splitDay = Data.split(":");	
+			Lid = splitDay[0];
+			Day = splitDay[1];							
+	
+			$.ajax("ajax-upload/list2.php?Day="+Day+"&Lid="+Lid)
+				.done(function(codeTime){
+					$('#Time').html(codeTime);
+				})
+				.fail(function(){
+					alert("Fail");
+				});
+		}
+	</script>
+
+	<div id="alert" style="display: none;">
 	<div id="upload-wrapper">
 		<div align="center">
 			<div id="msg"></div>
@@ -98,33 +101,37 @@
 				<td>
 					<div class="panel-body">
 						<div class="alert alert-info">
-							<table width="500" align="center">
+							<table width="600" align="center">
 								<tr height="50">
 									<td align="right"><strong><h3>อัพโหลดโดย :&nbsp;&nbsp;</h3></strong></td>
-									<td><input type="text" class="form-control" name="upload_by" placeholder="<?php echo $_SESSION['USER'];?>" disabled/></td>
+									<td><input type="text" class="form-control  input-lg" name="Name" placeholder="<?php echo $_SESSION['USER'];?>" disabled/></td>
 								</tr>
-
+								
+								<tr height="50">
+									<td align="right"><strong><h3>วันที่ :&nbsp;&nbsp;</h3></strong></td>
+									<td>
+										<input type="text" class="form-control input-lg" name="Date" id="datepicker" onChange="dropdownList()">
+									</td>
+								</tr>
+								
 								<tr height="50">
 									<td align="right"><strong><h3>ชื่อรายการ :&nbsp;&nbsp;</h3></strong></td>
 									<td>
-								 		<select name="upload_name" class="form-control" onChange="ListDate(this.value)">
-								 			<option selected value=""></option>
-								 			<?php foreach ($Data as $rs){?>
-									        <option value="<?php echo $rs['Lid']?>"><?php echo $rs['title']; ?></option>
-									       	<?php } ?>
-								   		</select>
+								 		<div id="List" name="List" style="font-size: 20px; font-weight: bold;">กรุณาเลือกวันที่</div>
    									</td>
 								</tr>
+								
 								<tr height="50">
 									<td align="right"><strong><h3>[เวลา] วัน :&nbsp;&nbsp;</h3></strong></td>
 									<td>
-										<select id="upload_date" name="upload_date" class="form-control"></select>
+										<div id="Time" name="Time" style="font-size: 20px; font-weight: bold;">กรุณาเลือกรายการ</div>
 									</td>
 								</tr>
+								
 								<tr height="50">	
 									<td align="right"><strong><h3>ไฟล์เพลง :&nbsp;&nbsp;</h3></strong></td>
 									<td>
-										<input type="file" name="upload_file" id="upload_file" class="btn btn-warning" />
+										<input type="file" name="upload_file" id="upload_file" class="form-control input-lg" />
 									</td>
 								</tr>
 							</table>								

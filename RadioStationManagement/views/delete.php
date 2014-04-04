@@ -4,7 +4,7 @@
 	$file = new File();
 	$db = new DB();
 	
-	$sql = "SELECT * FROM user_upload WHERE FilesID = '".$_GET['ID']."' LIMIT 1";
+	$sql = "SELECT * FROM _files WHERE F_id = '".$_GET['ID']."' LIMIT 1";
 	$db->query($sql);
 
 	foreach($db->fetch_array() as $data){}
@@ -51,7 +51,7 @@
       
       <div class="modal-footer">
 	      <div align="center">
-	      	<button type="button" onclick="JavaScript:window.location='controller/delete.php?ID=<?php echo $data["FilesID"];?>&File=<?php echo $data['FilesName']?>'" class="btn btn-danger">ยืนยันการลบ</button>
+	      	<button type="button" onclick="JavaScript:window.location='controller/delete.php?ID=<?php echo $data["F_id"];?>&File=<?php echo $data['F_name']?>'" class="btn btn-danger">ยืนยันการลบ</button>
 	        <button type="button" onclick="JavaScript:window.location='index.php?v=List'" class="btn btn-default" data-dismiss="modal">ย้อนกลับไป</button>
 	      </div>
       </div>

@@ -1,25 +1,57 @@
-<!DOCTYPE HTML>
-<html lang="en">
+<html>
 <head>
-  <meta charset="utf-8">
-  <title>jQuery.post demo</title>
-  	<script type="text/javascript" src="ajax-upload/js/jquery-1.10.2.min.js"></script>
-	<script type="text/javascript" src="ajax-upload/js/jquery.form.min.js"></script>
-	<script type="text/javascript" src="tt.js"></script>
+<title>ThaiCreate.Com Tutorial</title>
 </head>
 <body>
- 
-<form name="myform" id="myform" action="t.php" method="POST">
-	User: <input type="text" value="Ravishanker" name="txt"  /> <br/>
-	<input id="send" name="send" type="submit" value="Send" />
-</form>
+<?php
+ /*
+	$strStartDate = "2014-03-16";
+	$strEndDate = "2014-04-16";
+	
+	$intWorkDay = 0;
+	$intHoliday = 0;
+	$intTotalDay = ((strtotime($strEndDate) - strtotime($strStartDate))/  ( 60 * 60 * 24 )) + 1; 
 
-<!-- the result of the search will be rendered inside this div -->
-<div id="output" style="font-size: 25px;"></div>
-<div id="msg"></div>
+	while (strtotime($strStartDate) <= strtotime($strEndDate)) {
+		
+		$DayOfWeek = date("w", strtotime($strStartDate));
+		if($DayOfWeek == 0 or $DayOfWeek ==6)  // 0 = Sunday, 6 = Saturday;
+		{
+			$intHoliday++;
+			echo "$strStartDate = <font color=red>Holiday</font><br>";
+		}
+		else
+		{
+			$intWorkDay++;
+			echo "$strStartDate = <b>Work Day</b><br>";
+		}
+		//$DayOfWeek = date("l", strtotime($strStartDate)); // return Sunday, Monday,Tuesday....
 
-<script type="text/javascript">
+		$strStartDate = date ("Y-m-d", strtotime("+1 day", strtotime($strStartDate)));
+	}
 
-</script>
+	echo "<hr>";
+	echo "<br>Total Day = $intTotalDay";
+	echo "<br>Work Day = $intWorkDay";
+	echo "<br>Holiday = $intHoliday";
+*/	
+	$strStartDate = date('Y-m-d');
+	$strEndDate = date('Y-m-d',strtotime('+1 month'));
+	echo $strStartDate."<br>";
+	echo $strEndDate."<br>";
+	echo "<hr>";
+	while(strtotime($strStartDate) <= strtotime($strEndDate)){
+	  $day = $strStartDate;
+	$day = explode("-",$day);
+	
+	$jd=cal_to_jd(CAL_GREGORIAN,$day[1],$day[2],$day[0]); //2011-01-29
+		echo (jddayofweek($jd,1));
+		echo $strStartDate."<br>";
+		$strStartDate = date('Y-m-d', strtotime("+1 day", strtotime($strStartDate)));
+	
+	}
+
+
+?>
 </body>
 </html>

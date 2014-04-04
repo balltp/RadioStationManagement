@@ -1,8 +1,8 @@
 <?php
 	require_once ('../lib/File.php');
 	require_once ('../lib/DB.php');
-	include('../lib/GenListFile.php');
-	require_once '../lib/FN.php';
+	require_once ('../lib/GenListFile.php');
+	require_once ('../lib/FN.php');
 	
 	$file = new File();
 	$db = new DB();
@@ -11,36 +11,41 @@
 	$fn = new FN();
 	
 	$Name = $_GET["user"];
-	$Day = explode(":", $_POST["upload_date"]);
-	$DayWeek = $Day[0];
-	$DayTime = $Day[1];
-	$List = $_POST["upload_name"];
+	$Date = $_POST['Date'];
+	$Day = explode(":", $_POST["List"]);
+	$Lid = $Day[0];
+	$Fday = $Day[1];
+	$Ftime = $_POST["Time"];//DayMonth
 		
 	//ORDER FILE FROM DATABASE
-	$sql2 = "SELECT * FROM radio_sublist WHERE Lid='".$List."' AND day='".$DayWeek."' AND time='".$DayTime."'";
+	$sql2 = "SELECT * 
+		FROM _sublist 
+		WHERE L_id='$Lid' 
+			AND S_day='$Fday' 
+			AND S_time='$Ftime'
+		LIMIT 1";
 	$db2->query($sql2);
 	$Data2 = $db2->fetch_array();
-	$total = $Data2[0]['Sorder'];
+	$total = $Data2[0]['S_order'];
+	$Sid = $Data2[0]['S_id'];
 	
 	//UPLOAD FILE TO SERVER
-	$FilesPath = $file->pathFile($DayTime, $DayWeek);	
-	$file->uploadFile($FilesPath, $_FILES["upload_file"], ($total));
+	$FilesPath = $file->pathFile($Ftime, $Fday);	
+	$file->uploadFile($FilesPath, $_FILES["upload_file"], $total);
 	
 	$FilesName = $file->getName();
 	$Size = $_FILES["upload_file"]["size"];
 	$ContentType = $_FILES["upload_file"]["type"];
 	
 	//SAVE DATA TO DATABASE
-	$sql = "INSERT INTO user_upload VALUES 
-			(NULL, '".$Name."', '".$FilesName."', '".$Size."', '".$ContentType."', '".$DayWeek."', '".$DayTime."', '".$List."', '".$FilesPath."')";
+	$sql = "INSERT INTO _files 
+		VALUES (NULL, '".$FilesName."', '".$Name."', '".$Lid."', '".$Sid."', '".$Date."', '".$ContentType."', '".$Size."', '".$FilesPath."')";
 	$db->query($sql);
 	
 	//CHANGE STATUS FROM N => Y IN DATABASE
-	$sql3 = "UPDATE radio_sublist 
-		SET status='Y'
-		WHERE Lid='".$List."'
-			AND day='".$DayWeek."'
-			AND time='".$DayTime."'";
+	$sql3 = "UPDATE _sublist 
+		SET S_status='Y'
+		WHERE S_id='$Sid'";
 	$db3->query($sql3);
 
 ?>

@@ -27,7 +27,7 @@ class File{
 		
 		$filename = $total."_".$_POST["upload_name"]."_".$str.strtolower(substr($file["name"], -4));
 		$this->name = $filename;
-		$path = "..".$path;
+		$path = "../".$path;
 		if(move_uploaded_file($file["tmp_name"],$path.$filename)){
 			echo "<span class='label label-primary'>บันทึกข้อมูลเรียบร้อย</span>";
 		}else{
@@ -114,18 +114,17 @@ class File{
 	}
 	
 	//CHECK FILE IN SERVER
-	function checkFile($day, $time, $list){
+	function checkFile($Sid){
 		require_once 'lib/DB.php';
 		$db = new DB();
 		
 		$sql = "SELECT * 
-			FROM user_upload
-			WHERE DayWeek = '$day'
-				AND DayTime = '$time'
-				AND List = '$list'";
+			FROM _files
+			WHERE S_id = '$Sid'";
 		$db->query($sql);
 		$Data = $db->fetch_array();
-		$file = $Data[0]['FilesPath'].$Data[0]['FilesName'];
+		
+		$file = $Data[0]['F_path'].$Data[0]['F_name'];
 
 		if(!file_exists($file)){
 			return true;

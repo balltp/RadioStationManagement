@@ -4,13 +4,18 @@
 	$db = new DB();
 	
 	if($_SESSION['USER']!="admin"){
-		$sql = "SELECT * 
-			FROM user_upload 
-			WHERE Name = '".$_SESSION['USER']."' ORDER BY FilesID ASC";
+		$sql = "SELECT f.*, s.*, l.* 
+			FROM _files f, _sublist s, _list l
+			WHERE f.M_user = '".$_SESSION['USER']."'
+				AND f.L_id = l.L_id
+				AND f.S_id = s.S_id 
+			ORDER BY F_id ASC";
 	}else{
-		$sql = "SELECT *
-			FROM user_upload
-			ORDER BY FilesID ASC";
+		$sql = "SELECT f.*, s.*, l.* 
+			FROM _files f, _sublist s, _list l
+			WHERE f.L_id = l.L_id
+				AND f.S_id = s.S_id 
+			ORDER BY F_id ASC";
 	}
 	$db->query($sql);	
 ?>
@@ -31,6 +36,7 @@
 				<td><strong>FILE</strong></td>
 				<td><strong>SIZE</strong></td>
 				<td><strong>DATE</strong></td>
+				<td><strong>DAY</strong></td>
 				<td><strong>TIME</strong></td>
 				<td><strong>LIST</strong></td>
 				<td></td>
@@ -39,16 +45,17 @@
 				foreach ($db->fetch_array() as $data){
 			?>
 				<tr>
-					<td><?php echo $data['FilesID']; ?></td>
-					<td><?php echo $data['Name']; ?></td>
-					<td><?php echo $data['FilesName']; ?></td>
-					<td><?php printf("%.2f", ($data['Size']/$mod)); ?> MB.</td>
-					<td><?php echo $data['DayWeek']; ?></td>
-					<td><?php echo $data['DayTime']; ?></td>
-					<td><?php echo $data['List']; ?></td>
+					<td><?php echo $data['F_id']; ?></td>
+					<td><?php echo $data['M_user']; ?></td>
+					<td><?php echo $data['F_name']; ?></td>
+					<td><?php printf("%.2f", ($data['F_size']/$mod)); ?> MB.</td>
+					<td><?php echo $data['F_date']; ?></td>
+					<td><?php echo $data['S_day']; ?></td>
+					<td><?php echo $data['S_time']; ?></td>
+					<td><?php echo $data['L_th']; ?></td>
 					<td>
-					<a href="index.php?v=play&ID=<?php echo $data['FilesID']; ?>" class = "btn btn-success btn-xs"><span class="glyphicon glyphicon-music"></span></a>
-					<a href="index.php?v=Delete&ID=<?php echo $data['FilesID']; ?>" class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-trash"></span></a>
+					<a href="index.php?v=play&ID=<?php echo $data['F_id']; ?>" class = "btn btn-success btn-xs"><span class="glyphicon glyphicon-music"></span></a>
+					<a href="index.php?v=Delete&ID=<?php echo $data['F_id']; ?>" class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-trash"></span></a>
 					</td>
 				
 				</tr>

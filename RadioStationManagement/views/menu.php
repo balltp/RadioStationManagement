@@ -54,12 +54,6 @@
 				</a>
 			</li>
 			<li>
-				<a href="index.php?v=AddSubList">
-				<span class="glyphicon glyphicon-chevron-right"></span>
-				&nbsp;เพิ่ม รายการย่อย
-				</a>
-			</li>
-			<li>
 				<a href="index.php?v=ManageSubList">
 				<span class="glyphicon glyphicon-chevron-right"></span>
 				&nbsp;จัดการ รายการย่อย

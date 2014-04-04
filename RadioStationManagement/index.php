@@ -9,12 +9,14 @@
 	<!-- BOOTSTRAP -->
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+	<link rel="stylesheet" href="jquery/development-bundle/themes/ui-lightness/jquery-ui.css">
 	<link href="bootstrap/css/bootstrap-theme.min.css" rel="stylesheet" media="screen">
 </head>
-<body background="images/bg - blue.jpg">
-	<script src="bootstrap/js/jQuery.js"></script>
+<body background="images/bg - blue.jpg">	
+	<script src="jquery/js/jquery-1.10.2.js"></script>
+	<script src="jquery/js/jquery-ui-1.10.4.custom.min.js"></script>
 	<script src="bootstrap/js/bootstrap.min.js"></script>
-	
+
 	<!-- HEADER TOP  -->
 	<nav class="navbar-inverse navbar-static-top">
 	<div class="container">
@@ -26,7 +28,7 @@
 					ระบบจัดการไฟล์เพลง
 					</a>
 					<!-- ANNOUNCEMENT VIEW -->
-					<?php include ('views/announcement.php');?>
+					<?php /*include ('views/announcement.php');*/?>
 			</div>
 			<?php if(!empty($_SESSION["USER"])){?><br/>
 			<!-- LOGOUT -->
@@ -54,7 +56,7 @@
 		require_once ('lib/Control.php');
 		if(!empty($_SESSION["USER"])){
 	?>
-	
+
 	<!-- CONTENT LAOUT -->
 	<div class="container well" style="margin-top: 20px;margin-bottom: 20px">
 		<div class="row">

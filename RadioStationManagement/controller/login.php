@@ -5,11 +5,16 @@
 	
 	if(!empty($_POST)){
 		$db = new DB();
-		$db->query("SELECT * FROM member WHERE username = '".$_POST["user"]."' AND password = '".$_POST["pass"]."' LIMIT 1");
+		$sql = "SELECT M_user, M_pass, M_level
+			FROM _member 
+			WHERE M_user = '".$_POST["user"]."' 
+				AND M_pass = '".$_POST["pass"]."' LIMIT 1";
+		
+		$db->query($sql);
 		if($db->fetch_array()){		
 			$_SESSION["USER"] = $_POST["user"];
 			foreach($db->fetch_array() as $data){
-				$level = $data["level"];
+				$level = $data["M_level"];
 			}
 			$_SESSION["LEVEL"] = $level;
 			session_write_close();
