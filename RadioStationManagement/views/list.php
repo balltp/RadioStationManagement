@@ -39,12 +39,11 @@
 				<td><strong>DAY</strong></td>
 				<td><strong>TIME</strong></td>
 				<td><strong>LIST</strong></td>
-				<td></td>
 			</tr>	
 			<?php
 				foreach ($db->fetch_array() as $data){
 			?>
-				<tr>
+				<tr onClick="play(<?php echo $data['F_id']; ?>, <?php echo $data['S_id']; ?>, <?php echo $data['L_id']; ?>)">
 					<td><?php echo $data['F_id']; ?></td>
 					<td><?php echo $data['M_user']; ?></td>
 					<td><?php echo $data['F_name']; ?></td>
@@ -53,11 +52,6 @@
 					<td><?php echo $data['S_day']; ?></td>
 					<td><?php echo $data['S_time']; ?></td>
 					<td><?php echo $data['L_th']; ?></td>
-					<td>
-					<a href="index.php?v=play&ID=<?php echo $data['F_id']; ?>" class = "btn btn-success btn-xs"><span class="glyphicon glyphicon-music"></span></a>
-					<a href="index.php?v=Delete&ID=<?php echo $data['F_id']; ?>" class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-trash"></span></a>
-					</td>
-				
 				</tr>
 			<?php
 				}
@@ -70,3 +64,67 @@
 		?>
 	</div>
 </div>
+
+<div id="dialog"></div>
+
+<div id="del">
+	<h4>คุณแน่ใจที่จะลบ ไฟล์นี้จริงหรือ ?</h4>
+</div>
+
+<div id="delSuccess" title="แจ้งเตือน">
+	<h4>ลบไฟล์สำเร็จ !</h4>
+</div>
+
+<script>
+	$( "#dialog" ).hide();
+	$( "#del" ).hide();
+	$( "#delSuccess" ).hide();
+	
+	function play(Fid, Sid, Lid){
+		$.ajax("controller/play.php?PlayFid="+Fid+"&Sid="+Sid+"&Lid="+Lid)
+			.done(function(codePlay){
+				$('#dialog').html(codePlay);
+			})
+			.fail(function(){
+				alert("Fail");
+			});
+
+		$( "#dialog" ).dialog({
+		      width: 500,
+		      autoOpen: false,
+		      modal: true,
+		      title: "Play",
+		    });
+		$( "#dialog" ).dialog( "open" );
+	}
+	
+	function delFile(Fid){
+		$( "#del" ).dialog({
+		      width: 450,
+		      autoOpen: false,
+		      modal: true,
+		      draggable: false,
+		      title: "Delete",
+		      buttons: {
+		      	"ตกลง": function() {
+		        	$.ajax("controller/delete.php?Fid="+Fid)
+			  			.done(function(codeDel){
+			  				$( "#del" ).dialog( "close" );
+			  				$( "#dialog" ).dialog( "close" );
+			  				$( "#delSuccess" ).dialog({
+				  				modal: true
+				  				});
+			  				setTimeout("window.location.reload();",3000);
+			  			})
+			  			.fail(function(){
+			  				alert("Fail");
+			  			});
+		          },
+		          ยกเลิก: function() {
+		            $( this ).dialog( "close" );
+		          }
+		        }
+		    });
+		$( "#del" ).dialog( "open" );
+	}
+</script>

@@ -83,7 +83,7 @@
 		<strong>ตารางรายการเพลง</strong>
 	</div>
 	<div class="panel-body">
-		<table class="table table-bordered" width="800" align="center" border="1">
+		<table class="table table-bordered" align="center">
 			<?php 
 			for($i=0;$i<=count($TimeOfDay)-1;$i++){
 				if($TimeOfDay[$i]=='12.00'){

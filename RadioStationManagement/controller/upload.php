@@ -8,6 +8,7 @@
 	$db = new DB();
 	$db2 = new DB();
 	$db3 = new DB();
+	$db4 = new DB();
 	$fn = new FN();
 	
 	$Name = $_GET["user"];
@@ -15,7 +16,15 @@
 	$Day = explode(":", $_POST["List"]);
 	$Lid = $Day[0];
 	$Fday = $Day[1];
-	$Ftime = $_POST["Time"];//DayMonth
+	$Ftime = $_POST["Time"];
+	
+	//QUERY L_EN FROM _list
+	$sql4 = "SELECT L_en
+		FROM _list
+		WHERE L_id = '$Lid'";
+	$db4->query($sql4);
+	$Data4 = $db4->fetch_array();
+	$L_en = $Data4[0]['L_en'];
 		
 	//ORDER FILE FROM DATABASE
 	$sql2 = "SELECT * 
@@ -30,8 +39,8 @@
 	$Sid = $Data2[0]['S_id'];
 	
 	//UPLOAD FILE TO SERVER
-	$FilesPath = $file->pathFile($Ftime, $Fday);	
-	$file->uploadFile($FilesPath, $_FILES["upload_file"], $total);
+	$FilesPath = $file->pathFile($Ftime, $Fday, $Date);	
+	$file->uploadFile($FilesPath, $_FILES["upload_file"], $total, $L_en);
 	
 	$FilesName = $file->getName();
 	$Size = $_FILES["upload_file"]["size"];

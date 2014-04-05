@@ -15,7 +15,6 @@
 	$Data2 = $db2->fetch_array();
 	
 	$day = $fn->getDayTH();
-	
 	$time = $fn->getTime();
 ?>
 

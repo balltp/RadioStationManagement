@@ -2,7 +2,7 @@
 	require_once 'lib/DB.php';
 	require_once 'lib/FN.php';
 	require_once 'lib/File.php';
-	
+
 	$db = new DB();
 	$fn = new FN();
 	$file = new File();
@@ -51,14 +51,6 @@
 					<?php echo $fn->timeToBetween($time[$i]); ?>
 					<?php $rowMax = $fn->findMax($_GET['D'], $time[$i]); ?>
 					</div>
-					<!--  
-					<?php /*if($fn->checkSubList($_GET['D'], $time[$i])){ ?>
-					<div onClick="JavaScript:window.location='index.php?v=EditSubList&T=<?php echo $time[$i]; ?>&D=<?php echo $_GET['D']; ?>'" id="btn" class="btn btn-warning" style="font-size: 18px">
-						<span class="glyphicon glyphicon-sort-by-order"></span>
-						แก้ไขลำดับไฟล์
-					</div>
-					<?php } */?>
-					-->
 				</td>
 			</tr>
 			<tr>
@@ -87,7 +79,7 @@
 								<?php if($Data[$j]['S_status']=="Y"){ ?>
 									<span class="label label-success" style="font-size: 18px">
 									<span class="glyphicon glyphicon-ok-sign"></span>
-									อัพโหลดไฟล์แล้ว
+									อัพไฟล์แล้ว
 									</span>
 									<?php 
 										$Sid = $Data[$j]['S_id'];
@@ -103,7 +95,7 @@
 								<?php }else{ ?>
 									<span class="label label-danger" style="font-size: 18px">
 									<span class="glyphicon glyphicon-minus-sign"></span>
-									ยังไม่ได้อัพโหลดไฟล์
+									ยังไม่ได้อัพไฟล์
 									</span>
 								<?php } ?>
 								</td>
@@ -112,13 +104,14 @@
 										$Sid = $Data[$j]['S_id'];
 										$Sorder = $Data[$j]['S_order'];
 										$pSid[$row-1] = $Sid;
+										$status = $Data[$j]['S_status'];
 									if($row != 1) {?>
-									<button class="btn btn-info" onClick="orderUp(<?php echo $Sid; ?>, <?php echo $pSid[$row-2]; ?>, <?php echo $Sorder; ?>)">
+									<button class="btn btn-info" onClick="orderUp(<?php echo $Sid; ?>, <?php echo $pSid[$row-2]; ?>, <?php echo $Sorder; ?>, '<?php echo $status; ?>')">
 										<span class="glyphicon glyphicon-arrow-up"></span>
 									</button>
 									<?php } ?>
 									<?php if($row != $rowMax){ ?>
-									<button id="warning" class="btn btn-info" onClick="orderDown(<?php echo $Sid; ?>, <?php echo $Sorder; ?>, '<?php echo $_GET['D']; ?>', '<?php echo $time[$i]; ?>')">
+									<button id="warning" class="btn btn-info" onClick="orderDown(<?php echo $Sid; ?>, <?php echo $Sorder; ?>, '<?php echo $_GET['D']; ?>', '<?php echo $time[$i]; ?>', '<?php echo $status; ?>')">
 										<span class="glyphicon glyphicon-arrow-down"></span>
 									</button>
 									<?php } ?>
@@ -148,9 +141,10 @@
 
 <script type="text/javascript">
 	//CHANGE ORDER TO UP
-	function orderUp(Sid, pSid, Sorder){
-		$.ajax("controller/editorder.php?Mode=Up&Sid="+Sid+"&pSid="+pSid+"&Sorder="+Sorder)
+	function orderUp(Sid, pSid, Sorder, status){
+		$.ajax("controller/editorder.php?Mode=Up&Sid="+Sid+"&pSid="+pSid+"&Sorder="+Sorder+"&Status="+status)
 		.done(function(data){
+			//alert(data);
 			window.location.reload();
 		})
 		.fail(function(){
@@ -159,9 +153,10 @@
 	}
 
 	//CHANGE ORDER TO DOWN
-	function orderDown(Sid, Sorder, Day, Time){
-		$.ajax("controller/editorder.php?Mode=Down&Sid="+Sid+"&Sorder="+Sorder+"&Day="+Day+"&Time="+Time)
+	function orderDown(Sid, Sorder, Day, Time, status){
+		$.ajax("controller/editorder.php?Mode=Down&Sid="+Sid+"&Sorder="+Sorder+"&Day="+Day+"&Time="+Time+"&Status="+status)
 		.done(function(data){
+			//alert(data);
 			window.location.reload();
 		})
 		.fail(function(){

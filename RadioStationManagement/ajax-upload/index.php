@@ -66,7 +66,7 @@
 		}
 	</script>
 
-	<div id="alert" style="display: none;">
+<div id="alert" style="display: none;">
 	<div id="upload-wrapper">
 		<div align="center">
 			<div id="msg"></div>

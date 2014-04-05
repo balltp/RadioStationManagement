@@ -5,8 +5,12 @@
 	$db = new DB();
 	$db2 = new DB();
 	
-	$sql = "SELECT * FROM _files WHERE F_id = '".$_GET['ID']."'";
+	$Fid = $_GET['Fid'];
+	$sql = "SELECT * 
+		FROM _files 
+		WHERE F_id = '$Fid'";
 	$db->query($sql);
+	
 	foreach($db->fetch_array() as $rs){
 		$file_name = $rs['F_name'];	
 		$file_path = $rs['F_path'];
@@ -17,7 +21,8 @@
 	}
 	
 	//delete data in database
-	$sql = "DELETE FROM _files WHERE F_id = '".$_GET['ID']."'";
+	$sql = "DELETE FROM _files 
+		WHERE F_id = '$Fid'";
 	$db->query($sql);
 	
 	//delete file in server
@@ -25,10 +30,9 @@
 	
 	//CHANGE STATUS FROM Y => N IN DATABASE
 	$sql2 = "UPDATE _sublist
-	SET status='N'
-	WHERE S_id='$Sid'";
+		SET S_status='N'
+		WHERE S_id='$Sid'";
 	$db2->query($sql2);
-	
 ?>
 
 <!-- Alert Box and Goto List View -->

@@ -14,10 +14,6 @@
 			{
 				return require_once ('views/list.php');
 			}
-			else if($v == "Delete")
-			{
-				return require_once ('views/delete.php');
-			}
 			else if($v == "AddUser")
 			{
 				return require_once ('views/adduser.php');
@@ -36,7 +32,7 @@
 			}
 			else if($v == "Table")
 			{
-				return require_once('views/table.php');
+				return require_once('views/testtable.php');
 			}
 			else if($v == "Announce")
 			{
