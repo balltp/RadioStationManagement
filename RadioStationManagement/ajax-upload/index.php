@@ -36,6 +36,19 @@
 					    dayNamesMin: [ "อา", "จ", "อ", "พ", "พฤ", "ศ", "ส" ],
 					    monthNames: [ "มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม" ]
 			});
+			 $( "#upload-wrapper" ).dialog({
+			      width: 600,
+			      autoOpen: false,
+			      modal: true,
+			      draggable: false,
+			      resizable: false,
+			      title: "Upload File",
+			      buttons: {
+				          ปิดหน้าต่าง: function() {
+				            $( this ).dialog( "close" );
+				          }
+			      }
+			    });
 		});
 
 		function dropdownList(){
@@ -66,18 +79,19 @@
 		}
 	</script>
 
-<div id="alert" style="display: none;">
+
 	<div id="upload-wrapper">
 		<div align="center">
 			<div id="msg"></div>
-			<div class="progress progress-striped active" id="progressbox" style="display:none;">
+			<div class="progress progress-striped active" id="progressbox"
+				style="display: none;">
 				<div class="progress-bar progress-bar-primary" id="progressbar"></div>
 				<div id="statustxt">0%</div>
 			</div>
 			<div id="output" style="font-size: 25px;"></div>
 		</div>
 	</div>
-</div>
+
 <div class="panel panel-primary">
 	<!-- HEADING PANEL CONTENT -->
 	<div class="panel-heading">

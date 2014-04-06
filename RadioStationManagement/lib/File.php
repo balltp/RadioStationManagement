@@ -88,19 +88,21 @@ class File{
 		$db->query($sql);
 		$Data = $db->fetch_array();
 		
-		$Fid = $Data[0]['F_id'];
-		$path = "../".$Data[0]['F_path'];
-		$Name = $Data[0]['F_name'];
-		
-		$newname = $newOrder.substr($Name, 2);
-		$old = $path.$Name;
-		$new = $path.$newname;
-
-		if(rename($old, $new)){
-			$sql2 = "UPDATE _files
-				SET F_name = '$newname'
-				WHERE F_id = '$Fid'";
-			$db2->query($sql2);
+		foreach($Data as $rs){
+			$Fid = $rs['F_id'];
+			$path = "../".$rs['F_path'];
+			$Name = $rs['F_name'];
+			
+			$newname = $newOrder.substr($Name, 2);
+			$old = $path.$Name;
+			$new = $path.$newname;
+	
+			if(rename($old, $new)){
+				$sql2 = "UPDATE _files
+					SET F_name = '$newname'
+					WHERE F_id = '$Fid'";
+				$db2->query($sql2);
+			}
 		}
 	}	
 	
@@ -124,6 +126,7 @@ class File{
 	function checkFile($Sid){
 		require_once 'lib/DB.php';
 		$db = new DB();
+		$db2 = new DB();
 		
 		$sql = "SELECT * 
 			FROM _files

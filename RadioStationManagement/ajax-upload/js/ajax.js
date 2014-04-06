@@ -13,7 +13,7 @@ $(document).ready(function() {
 		}; 
 		
 	 $('#MyUploadForm').submit(function() { 
-		 	$("#alert").css('display', '');
+		 	$("#upload-wrapper").dialog("open");
 			$(this).ajaxSubmit(options);  			
 			// return false to prevent standard browser submit and page navigation 
 			return false; 
