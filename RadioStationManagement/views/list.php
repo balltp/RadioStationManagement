@@ -114,7 +114,7 @@
 			  				$( "#delSuccess" ).dialog({
 				  				modal: true
 				  				});
-			  				setTimeout("window.location.reload();",3000);
+			  				setTimeout("window.location.reload();",1500);
 			  			})
 			  			.fail(function(){
 			  				alert("Fail");

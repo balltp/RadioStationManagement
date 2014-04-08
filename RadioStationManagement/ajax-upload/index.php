@@ -28,6 +28,7 @@
 	<script src="jquery/js/jquery-ui-1.10.4.custom.min.js"></script>
 	
 	<script type="text/javascript">
+
 		$(function() {
 			$( "#datepicker" ).datepicker({ 
 					    minDate: 0, 
@@ -36,6 +37,7 @@
 					    dayNamesMin: [ "อา", "จ", "อ", "พ", "พฤ", "ศ", "ส" ],
 					    monthNames: [ "มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม" ]
 			});
+			
 			 $( "#upload-wrapper" ).dialog({
 			      width: 600,
 			      autoOpen: false,
@@ -48,6 +50,23 @@
 				            $( this ).dialog( "close" );
 				          }
 			      }
+			    });
+			    
+			 $( "#war" ).dialog({
+			      width: 450,
+			      autoOpen: false,
+			      modal: true,
+			      draggable: false,
+			      title: "Delete",
+			      buttons: {
+			      	"อัพโหลดทับ": function() {
+			      		$('#MyUploadForm').ajaxSubmit(options);
+			          },
+			          ยกเลิก: function() {
+			            $( this ).dialog( "close" );
+			            window.location.reload();
+			          }
+			        }
 			    });
 		});
 
@@ -78,8 +97,9 @@
 				});
 		}
 	</script>
-
-
+	
+	<div id="war"></div>
+	
 	<div id="upload-wrapper">
 		<div align="center">
 			<div id="msg"></div>

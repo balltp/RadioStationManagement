@@ -14,7 +14,11 @@
 			<table align="center" width="500">
 				<tr align="right" height="50">
 					<td>NAME : </td>
-					<td><input type="text" class="form-control" name="name" placeholder="นายดีเจ น่าฟัง"/></td>
+					<td><input type="text" class="form-control" name="name" placeholder="นายดีเจ"/></td>
+				</tr>
+				<tr align="right" height="50">
+					<td>LASTNAME : </td>
+					<td><input type="text" class="form-control" name="lname" placeholder="น่าฟัง"/></td>
 				</tr>
 				<tr align="right" height="50">
 					<td>USERNAME : </td>

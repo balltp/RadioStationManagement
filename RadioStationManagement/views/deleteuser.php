@@ -4,7 +4,7 @@
 
 	if(Control::checkLevel($_SESSION["LEVEL"])){ 
 		$db = new DB();
-		$sql = "SELECT * FROM member ORDER BY level";
+		$sql = "SELECT * FROM _member ORDER BY M_level";
 		$db->query($sql);
 ?>
 
@@ -37,12 +37,12 @@ function Delete(delUrl) {
 				<?php foreach($db->fetch_array() as $rs){?>
 				<tr>
 					<td align="center"><?php echo $rs['id']?></td>
-					<td><?php echo $rs['username']?></td>
-					<td><?php echo $rs['name']?></td>
-					<td><?php echo $rs['level']?></td>
+					<td><?php echo $rs['M_user']?></td>
+					<td><?php echo $rs['M_name']?></td>
+					<td><?php echo $rs['M_level']?></td>
 					<td>
 						<?php 
-							$url = "controller/deleteuser.php?UserID=".$rs['id']; 
+							$url = "controller/deleteuser.php?UserID=".$rs['M_id']; 
 						?>
 						<a href="javascript:Delete('<?php echo $url; ?>')" class="btn btn-danger btn-xs">
 						<span class="glyphicon glyphicon-trash"></span>

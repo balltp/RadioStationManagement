@@ -14,7 +14,29 @@ $(document).ready(function() {
 		
 	 $('#MyUploadForm').submit(function() { 
 		 	$("#upload-wrapper").dialog("open");
-			$(this).ajaxSubmit(options);  			
+/*		 	
+		 	var Data = MyUploadForm.List.value;	
+			var splitDay = Data.split(":");	
+			Lid = splitDay[0];
+			Day = splitDay[1];	
+			var Time = MyUploadForm.Time.value;
+			var Date = MyUploadForm.Date.value;
+
+			$.ajax("ajax-upload/test.php?Lid="+Lid+"&Day="+Day+"&Time="+Time+"&Date="+Date)
+				.done(function(codeCheck){
+					var splitcodeCheck = codeCheck.split("-");	
+					//alert(splitcodeCheck[0]+' และ '+splitcodeCheck[1]);
+					if(splitcodeCheck[0]=='N'){
+						$("#war").dialog("open");
+					}else{
+						$('#MyUploadForm').ajaxSubmit(options);
+					}
+				})
+				.fail(function(){
+					alert("Fail");
+				});
+*/			
+		 	$('#MyUploadForm').ajaxSubmit(options);			
 			// return false to prevent standard browser submit and page navigation 
 			return false; 
 		});
@@ -37,7 +59,7 @@ function afterSuccess()
 {
 	$("#msg").html("<span class='label label-success' style='font-size: 25px;'><b>อัพโหลดไฟล์ สำเร็จ</b></span>");
 	$('#submit-btn').show(); //hide submit button
-	$('#loading-img').hide(); //hide submit button
+	//$('#loading-img').hide(); //hide submit button
 
 }
 
@@ -83,7 +105,7 @@ function beforeSubmit(){
 
 				
 		$('#submit-btn').hide(); //hide submit button
-		$('#loading-img').show(); //hide submit button
+		//$('#loading-img').show(); //hide submit button
 		$("#output").html("");  
 	}
 	else

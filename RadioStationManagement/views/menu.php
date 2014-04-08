@@ -23,12 +23,6 @@
 				&nbsp;รายการของฉัน
 				</a>
 			</li>
-			<li>
-				<a href="index.php?v=Table">
-				<span class="glyphicon glyphicon-chevron-right"></span>
-				&nbsp;ตารางรายการเพลง
-				</a>
-			</li>
 		</ul>
 	</div>
 </div>	
