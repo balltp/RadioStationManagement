@@ -12,9 +12,9 @@
 	<div class="panel-body">
 		<form action="controller/announce.php" method="POST" entype="multipart/form-data">
 		<div class="pull-right">
-			<button type="submit" class="btn btn-primary">ADD</button>
+			<button type="submit" class="btn btn-primary">ยืนยัน</button>
 			&nbsp;
-			<button type="reset" class="btn btn-default">CLEAR</button>
+			<button type="reset" class="btn btn-default">รีเซ็ต</button>
 		</div>
 			<table align="center" width="100">
 					<td><tr align="center">
