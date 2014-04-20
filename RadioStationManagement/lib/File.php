@@ -17,9 +17,10 @@ class File{
 	//UPLOAD FILE TO SERVER 
 	function uploadFile($path, $file = array(), $total, $L_en){
 		$number = rand();
-		$type = strtolower(substr($file["name"], -4));
+		$tmp_type = explode("/", $file['type']);
+		$type = $tmp_type[1];
 		
-		$filename = $total."_".$L_en."-".$number.$type;
+		$filename = $total."_".$L_en."-".$number.".".$type;
 		$this->name = $filename;
 		$path = "../".$path;
 		if(move_uploaded_file($file["tmp_name"],$path.$filename));
@@ -43,15 +44,15 @@ class File{
 			mkdir("../files/".$Mdate."/".$Ddate);
 		}
 		
-		if(!(file_exists("../files/$Mdate/$Ddate/$time"))){
-			mkdir("../files/".$Mdate."/".$Ddate."/".$time);
+		if(!(file_exists("../files/$Mdate/$Ddate/$day"))){
+			mkdir("../files/".$Mdate."/".$Ddate."/".$day);
 		}
 
-		if(!(file_exists("../files/$Mdate/$Ddate/$time/$day"))){
-			mkdir("../files/".$Mdate."/".$Ddate."/".$time."/".$day);
+		if(!(file_exists("../files/$Mdate/$Ddate/$day/$time/"))){
+			mkdir("../files/".$Mdate."/".$Ddate."/".$day."/".$time);
 		}
 		
-		$path = "files/".$Mdate."/".$Ddate."/".$time."/".$day."/";
+		$path = "files/".$Mdate."/".$Ddate."/".$day."/".$time."/";
 		
 		return $path;
 	}
@@ -106,41 +107,60 @@ class File{
 		}
 	}	
 	
-	//UPDATE ORDER IN DATABASE
-	function updateOrderDB($Sid, $Order){
+	function checkFile(){
 		require_once '../lib/DB.php';
 		$db = new DB();
-
-		for($i=0; $i<COUNT($Sid); $i++){
-			$Sorder = $Order[$i];
-			$id = $Sid[$i];
-
-			$sql = "UPDATE radio_sublist
-				SET Sorder = '$Sorder'
-				WHERE Sid = '$id'";
-			$db->query($sql);
+		$db2 = new DB();
+		$db3 = new DB();
+		
+		$sql = "SELECT * FROM _files";
+		$db->query($sql);
+		
+		foreach($db->fetch_array() as $rs){
+			$file = "../".$rs['F_path'].$rs['F_name'];
+			if(!file_exists($file)){
+				$Sid = $rs['S_id'];
+				$sql2 = "UPDATE _sublist
+					SET S_status = 'N'
+					WHERE S_id = '$Sid'";
+				$db2->query($sql2);
+				
+				$Fid = $rs['F_id'];
+				$sql3 = "DELETE FROM _files WHERE F_id = '$Fid'";
+				$db3->query($sql3);
+			}
 		}
 	}
-	
-	//CHECK FILE IN SERVER
-	function checkFile($Sid){
-		require_once 'lib/DB.php';
+
+	//DELETE FILE FROM DATABASE
+	function deleteFileDB($Lid){
+		require_once '../lib/DB.php';
 		$db = new DB();
-		$db2 = new DB();
 		
+		$sql = "DELETE FROM _files WHERE L_id = '$Lid'";
+		$db->query($sql);
+	}
+	
+	//CHECK FILE HAVE TODAY
+	function checkToday($Sid, $Lid){
+		require_once 'lib/DB.php';
+		
+		$today = date("Y-m-d");
+		
+		$db = new DB();
 		$sql = "SELECT * 
 			FROM _files
-			WHERE S_id = '$Sid'";
+			WHERE S_id = '$Sid'
+				AND L_id = '$Lid'
+				AND F_date = '$today'";
 		$db->query($sql);
-		$Data = $db->fetch_array();
 		
-		$file = $Data[0]['F_path'].$Data[0]['F_name'];
-
-		if(!file_exists($file)){
-			return true;
+		if($db->fetch_array()){
+			return true;	
 		}else{
 			return false;
 		}
+
 	}
 	
 }

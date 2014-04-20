@@ -71,6 +71,10 @@ class FN{
 		}
 	}
 	
+	function getToday(){
+		return date("Y-m-d");
+	}
+	
 	function getDayTH(){
 		return $this->dayTH;
 	}

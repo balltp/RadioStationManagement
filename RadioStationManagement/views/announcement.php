@@ -2,7 +2,7 @@
 	require_once ('lib/DB.php');
 	$db = new DB();
 
-	$sql = "SELECT * FROM announce";
+	$sql = "SELECT * FROM _announce";
 	$db->query($sql);
 	$data = $db->fetch_array();
 ?>

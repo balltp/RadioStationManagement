@@ -33,6 +33,7 @@
 		</span>
 		</strong>
 	</div>
+	
 	<div class="panel-body">
 		<?php for($i=0; $i<count($day); $i++){?>
 			<a style="font-size: 18px" href="index.php?v=ManageSubList&D=<?php echo $fn->dateToEN($day[$i]); ?>" class="btn btn-primary">
@@ -57,13 +58,16 @@
 				<td>
 					<?php if($fn->checkSubList($_GET['D'], $time[$i])){ ?>
 					<table class="table table-bordered" id="tb">
+					<thead>
 						<tr class="success" style="font-size: 20px">
 							<td width="50px" align="center">#</td>
 							<td width="300px">รายการ</td>
-							<td>สถานะ</td>
-							<td>ลำดับ</td>
+							<td>สถานะ <b>[วันนี้]</b></td>
+							<td width="50px">ลำดับ</td>
 							<td width="50px"></td>
 						</tr>
+					</thead>
+					<tbody>
 					<?php 
 						$row = 0;
 						for($j=0; $j<count($Data); $j++){?>	
@@ -76,22 +80,15 @@
 								</td>
 								<td><?php echo $Data[$j]['L_th']; ?></td>
 								<td>
-								<?php if($Data[$j]['S_status']=="Y"){ ?>
-									<span class="label label-success" style="font-size: 18px">
-									<span class="glyphicon glyphicon-ok-sign"></span>
-									อัพไฟล์แล้ว
-									</span>
-									<?php 
+								<?php 
 										$Sid = $Data[$j]['S_id'];
-									?>
-									</br>
-									
-									<?php if($file->checkFile($Sid)){ ?>
-										<div style="font-size: 18px; color: red;">
-										<span class="glyphicon glyphicon-question-sign"></span>
-											<strong>ไม่พบไฟล์บน Server!</strong>
-										</div>
-									<?php } ?>
+										$Lid = $Data[$j]['L_id'];
+								?>
+								<?php if($file->checkToday($Sid, $Lid)=="OK"){ ?>
+									<button style="font-size: 18px" class="btn btn-success">
+										<span class="glyphicon glyphicon-ok-sign"></span>
+										อัพไฟล์แล้ว
+									</button>
 								<?php }else{ ?>
 									<span class="label label-danger" style="font-size: 18px">
 									<span class="glyphicon glyphicon-minus-sign"></span>
@@ -99,33 +96,32 @@
 									</span>
 								<?php } ?>
 								</td>
-								<td align="left">
+								<td align="center">
 									<?php 
 										$Sid = $Data[$j]['S_id'];
 										$Sorder = $Data[$j]['S_order'];
 										$pSid[$row-1] = $Sid;
 										$status = $Data[$j]['S_status'];
 									if($row != 1) {?>
-									<button class="btn btn-info" onClick="orderUp(<?php echo $Sid; ?>, <?php echo $pSid[$row-2]; ?>, <?php echo $Sorder; ?>, '<?php echo $status; ?>')">
+									<button class="btn btn-info btn-xs" onClick="orderUp(<?php echo $Sid; ?>, <?php echo $pSid[$row-2]; ?>, <?php echo $Sorder; ?>, '<?php echo $status; ?>')">
 										<span class="glyphicon glyphicon-arrow-up"></span>
 									</button>
 									<?php } ?>
 									<?php if($row != $rowMax){ ?>
-									<button id="warning" class="btn btn-info" onClick="orderDown(<?php echo $Sid; ?>, <?php echo $Sorder; ?>, '<?php echo $_GET['D']; ?>', '<?php echo $time[$i]; ?>', '<?php echo $status; ?>')">
+									<button id="warning" class="btn btn-info btn-xs" onClick="orderDown(<?php echo $Sid; ?>, <?php echo $Sorder; ?>, '<?php echo $_GET['D']; ?>', '<?php echo $time[$i]; ?>', '<?php echo $status; ?>')">
 										<span class="glyphicon glyphicon-arrow-down"></span>
 									</button>
 									<?php } ?>
 								</td>
 								<td align="center">
-									<a onClick="JavaScript:if(confirm('คุณต้องการลบ?')==true){
-												window.location='controller/delsublist.php?Sid=<?php echo $Data[$j]['Sid']; ?>'};" 
-										class="btn btn-danger" >
+									<button onClick="deleteSublist(<?php echo $Sid; ?>, <?php echo $Sorder; ?>)" class="btn btn-danger" >
 										<span class="glyphicon glyphicon-remove"></span>
-									</a>
+									</button>
 								</td>
 							</tr>
 						<?php }?>				
 					<?php } ?>
+					</tbody>
 					</table>
 					<?php }else{ ?>
 						<div align="center">
@@ -139,7 +135,16 @@
 	</div>
 </div>
 
+<div id="dialog" title="File Upload"></div>
+
 <script type="text/javascript">
+
+	$('#dialog').dialog({
+		width: 600,
+		autoOpen: false,
+		modal: true,
+	});
+	
 	//CHANGE ORDER TO UP
 	function orderUp(Sid, pSid, Sorder, status){
 		$.ajax("controller/editorder.php?Mode=Up&Sid="+Sid+"&pSid="+pSid+"&Sorder="+Sorder+"&Status="+status)
@@ -162,5 +167,18 @@
 		.fail(function(){
 			alert("Fail");
 		});
+	}
+
+	//DELETE SUBLIST
+	function deleteSublist(Sid, Sorder){
+		if (confirm("คุณจะลบรายการนี้จริงหรือ?")){
+			$.ajax("controller/delsublist.php?Sid="+Sid+"&Sorder="+Sorder)
+				.done(function(data){
+					window.location.reload();
+				})
+				.fail(function(){
+					alert("Fail");
+				});
+		}
 	}
 </script>

@@ -28,7 +28,7 @@
 					ระบบจัดการไฟล์เพลง
 					</a>
 					<!-- ANNOUNCEMENT VIEW -->
-					<?php /*include ('views/announcement.php');*/?>
+					<?php include ('views/announcement.php');?>
 			</div>
 			<?php if(!empty($_SESSION["USER"])){?><br/>
 			<!-- LOGOUT -->

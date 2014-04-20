@@ -30,11 +30,17 @@
 			<div class="pull-right">
 				<a href="index.php?v=EditList&Lid=<?php echo $rs['L_id']; ?>"
 					class="btn btn-warning"> <span class="glyphicon glyphicon-pencil"></span>
-				</a> <a
+				</a> 
+				<!--  
+				<a
 					onClick="JavaScript:if(confirm('คุณต้องการลบ?')==true){
 										window.location='controller/dellist.php?Lid=<?php echo $rs['L_id']; ?>'};"
 					class="btn btn-danger"> <span class="glyphicon glyphicon-remove"></span>
 				</a>
+				-->
+				<button onClick="deleteList(<?php echo $rs['L_id']; ?>)" class="btn btn-danger">
+					<span class="glyphicon glyphicon-remove"></span>
+				</button>
 			</div>
 		</div>
 		<?php } ?>
@@ -65,6 +71,8 @@
 	</div>
 </div>
 
+<div id="confirm" title="Warning" style="font-size: 20px">คุณแน่ใจที่จะลบรายการนี้แล้วหรือ ?</div>
+
 <script type="text/javascript">
 		$(function() {
 		    $( "#dialog" ).dialog({
@@ -77,6 +85,8 @@
 		    $( "#opener" ).click(function() {
 		      $( "#dialog" ).dialog( "open" );
 		    });
+
+		    $( "#confirm" ).hide();
 		});
 	
 		$(function(){
@@ -86,6 +96,18 @@
 				alert('บันทึกเรียบร้อย');
 			});
 		});
+
+		function deleteList(Lid) {
+			if (confirm("คุณจะลบรายการนี้จริงหรือ?")){
+				$.ajax('controller/dellist.php?Lid='+Lid)
+					.done(function(data){
+						window.location.reload();
+					})
+					.fail(function(){
+					alert("Fail");
+					});
+			}
+		}
 
 		function modalHide() {
 			$('#dialog').dialog( "close" );

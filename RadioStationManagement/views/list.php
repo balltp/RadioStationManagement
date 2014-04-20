@@ -15,7 +15,7 @@
 			FROM _files f, _sublist s, _list l
 			WHERE f.L_id = l.L_id
 				AND f.S_id = s.S_id 
-			ORDER BY F_id ASC";
+			ORDER BY DATE(F_date) ASC";
 	}
 	$db->query($sql);	
 ?>

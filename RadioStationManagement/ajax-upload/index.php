@@ -52,28 +52,13 @@
 			      }
 			    });
 			    
-			 $( "#war" ).dialog({
-			      width: 450,
-			      autoOpen: false,
-			      modal: true,
-			      draggable: false,
-			      title: "Delete",
-			      buttons: {
-			      	"อัพโหลดทับ": function() {
-			      		$('#MyUploadForm').ajaxSubmit(options);
-			          },
-			          ยกเลิก: function() {
-			            $( this ).dialog( "close" );
-			            window.location.reload();
-			          }
-			        }
-			    });
+			 
 		});
 
 		function dropdownList(){
 			var Date = MyUploadForm.Date.value;	
 			
-			$.ajax("ajax-upload/list3.php?Date="+Date)
+			$.ajax("ajax-upload/listList.php?Date="+Date)
 				.done(function(codeList){
 					$('#List').html(codeList);
 				})
@@ -88,13 +73,13 @@
 			Lid = splitDay[0];
 			Day = splitDay[1];							
 	
-			$.ajax("ajax-upload/list2.php?Day="+Day+"&Lid="+Lid)
+			$.ajax("ajax-upload/listTime.php?Day="+Day+"&Lid="+Lid)
 				.done(function(codeTime){
 					$('#Time').html(codeTime);
 				})
 				.fail(function(){
 					alert("Fail");
-				});
+				});		
 		}
 	</script>
 	
@@ -144,7 +129,7 @@
 								<tr height="50">
 									<td align="right"><strong><h3>วันที่ :&nbsp;&nbsp;</h3></strong></td>
 									<td>
-										<input type="text" class="form-control input-lg" name="Date" id="datepicker" onChange="dropdownList()">
+										<input value="" type="text" class="form-control input-lg" name="Date" id="datepicker" onChange="dropdownList()">
 									</td>
 								</tr>
 								

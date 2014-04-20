@@ -13,30 +13,52 @@ $(document).ready(function() {
 		}; 
 		
 	 $('#MyUploadForm').submit(function() { 
-		 	$("#upload-wrapper").dialog("open");
-/*		 	
+		 	
 		 	var Data = MyUploadForm.List.value;	
 			var splitDay = Data.split(":");	
 			Lid = splitDay[0];
 			Day = splitDay[1];	
 			var Time = MyUploadForm.Time.value;
 			var Date = MyUploadForm.Date.value;
-
-			$.ajax("ajax-upload/test.php?Lid="+Lid+"&Day="+Day+"&Time="+Time+"&Date="+Date)
-				.done(function(codeCheck){
-					var splitcodeCheck = codeCheck.split("-");	
-					//alert(splitcodeCheck[0]+' และ '+splitcodeCheck[1]);
-					if(splitcodeCheck[0]=='N'){
-						$("#war").dialog("open");
-					}else{
-						$('#MyUploadForm').ajaxSubmit(options);
-					}
-				})
-				.fail(function(){
-					alert("Fail");
-				});
-*/			
-		 	$('#MyUploadForm').ajaxSubmit(options);			
+			
+			if(Data=="" || Time==""){
+				alert('กรุณาใส่ข้อมูลให้ครบ');
+			}else{
+				$.ajax("ajax-upload/check.php?Lid="+Lid+"&Day="+Day+"&Time="+Time+"&Date="+Date)
+					.done(function(codeCheck){
+						var splitcodeCheck = codeCheck.split("-");	
+						if(splitcodeCheck[0]=='N'){
+							var msg = 'คุณ '+splitcodeCheck[1]+' ได้มีการอัพโหลดรายการนี้แล้ว';
+							$("#war").html(msg);
+							$( "#war" ).dialog({
+							      width: 450,
+							      autoOpen: false,
+							      modal: true,
+							      draggable: false,
+							      title: "Replace File",
+							      buttons: {
+							      	"อัพโหลดทับ": function() {
+							      		$( this ).dialog( "close" );		 		
+							      		$('#MyUploadForm').ajaxSubmit(options);
+							      		$("#upload-wrapper").dialog("open");
+							          },
+							          ยกเลิก: function() {
+							            $( this ).dialog( "close" );           
+							          }
+							        }
+							    });
+							$("#war").dialog("open");
+						}else{
+							$("#upload-wrapper").dialog("open");
+							$('#MyUploadForm').ajaxSubmit(options);
+						}
+					})
+					.fail(function(){
+						alert("Fail");
+					});
+			}
+			
+		 	//$('#MyUploadForm').ajaxSubmit(options);			
 			// return false to prevent standard browser submit and page navigation 
 			return false; 
 		});
@@ -60,6 +82,7 @@ function afterSuccess()
 	$("#msg").html("<span class='label label-success' style='font-size: 25px;'><b>อัพโหลดไฟล์ สำเร็จ</b></span>");
 	$('#submit-btn').show(); //hide submit button
 	//$('#loading-img').hide(); //hide submit button
+	//window.location.reload();
 
 }
 
