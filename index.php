@@ -1,5 +1,6 @@
 <?php 
 	session_start();
+	// phpinfo();
 ?>
 <!DOCTYPE html>
 <html>
@@ -70,7 +71,7 @@
 			<!-- CONTENT -->
 			<div class="col-md-9">
 			<?php 
-				Control::content($_GET['v']);
+				Control::content(empty($_GET['v'])? NULL : $_GET['v']);
 			?>
 			</div>
 		</div>

@@ -12,7 +12,7 @@
   		<td>
 			<font color="#FF6600">
 				<marquee behavior="scroll" scrollamount="5" direction="left" scrolldelay="100">
-				<b>ประกาศจากทีมงาน : <?php echo $data[0][an_text]; ?></b></marquee>
+				<b>ประกาศจากทีมงาน : <?php echo $data[0]["an_text"]; ?></b></marquee>
 			</font>
 		</td>
 	</tr>

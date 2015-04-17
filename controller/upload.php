@@ -1,7 +1,7 @@
 <?php
 	require_once ('../lib/File.php');
 	require_once ('../lib/DB.php');
-	require_once ('../lib/GenListFile.php');
+	// require_once ('../lib/GenListFile.php');
 	require_once ('../lib/FN.php');
 	
 	$file = new File();
@@ -69,7 +69,7 @@
 		$FilesName = $file->getName();
 		$Size = $_FILES["upload_file"]["size"];
 		$ContentType = $_FILES["upload_file"]["type"];
-		
+
 		//SAVE DATA TO DATABASE
 		$sql = "INSERT INTO _files
 		VALUES (NULL, '".$FilesName."', '".$Name."', '".$Lid."', '".$Sid."', '".$Date."', '".$ContentType."', '".$Size."', '".$FilesPath."')";
