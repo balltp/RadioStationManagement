@@ -1,7 +1,16 @@
 <?php
-	require_once ('config.php');
+	//require_once ('config.php');
+
+	define('DB_HOST','localhost');
+	// const DB_HOST = 'localhost';
+
+	define("DB_ROOT", "root");
+	define("DB_PW", "");
+	define("DB_NAME", "sut_radio");
+	define("USER", empty($_SESSION['USER'])? NULL:$_SESSION['USER']);
+	define("IP", $_SERVER["REMOTE_ADDR"]);
 	
-	class DB{
+	class DB {
 		private $charset = "UTF8";
 		private $rs;
 		private $_fetch_array = array();

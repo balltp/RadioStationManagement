@@ -17,11 +17,13 @@ class File{
 	//UPLOAD FILE TO SERVER 
 	function uploadFile($path, $file = array(), $total, $L_en){
 		$number = rand();
-		$tmp_type = explode("/", $file['type']);
+
+		$tmp_type = explode(".", $file['name']);
 		$type = $tmp_type[1];
 		
 		$filename = $total."_".$L_en."-".$number.".".$type;
 		$this->name = $filename;
+
 		$path = "../".$path;
 		if(move_uploaded_file($file["tmp_name"],$path.$filename));
 	}

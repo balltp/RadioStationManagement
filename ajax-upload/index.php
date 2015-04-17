@@ -50,9 +50,7 @@
 				            $( this ).dialog( "close" );
 				          }
 			      }
-			    });
-			    
-			 
+			    });			 
 		});
 
 		function dropdownList(){

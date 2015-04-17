@@ -36,10 +36,10 @@ function Delete(delUrl) {
 			<tbody>
 				<?php foreach($db->fetch_array() as $rs){?>
 				<tr>
-					<td align="center"><?php echo $rs['id']?></td>
-					<td><?php echo $rs['M_user']?></td>
-					<td><?php echo $rs['M_name']?></td>
-					<td><?php echo $rs['M_level']?></td>
+					<td align="center"><?php echo $rs['M_id']; ?></td>
+					<td><?php echo $rs['M_user']; ?></td>
+					<td><?php echo $rs['M_name']; ?></td>
+					<td><?php echo $rs['M_level']; ?></td>
 					<td>
 						<?php 
 							$url = "controller/deleteuser.php?UserID=".$rs['M_id']; 
